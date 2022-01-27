@@ -1,0 +1,28 @@
+=========================================
+The Depths (Alternate Hell)
+=========================================
+
+Hello and welcome to the second mod we are working on to replace a vannilla biome in terraria. This time we are replacing the Underworld with the depths.
+The Depths is focused around Gems and murcury and was a concept done y snickerbobble in 2015. Currently this mod is in early public release so many features may be missing or there may be a few bugs.
+
+We encourage people make new worlds as this mod adds world generation to new worlds that allows the new content to be accessed.
+
+=========================================
+-=Features=-
+=========================================
+World generation
+World Creation UI
+whole new Gem type
+81 Items
+13 NPCs
+36 Tiles
+5 Walls
+8 Buffs
+
+==========================================
+-=Credits=-
+==========================================
+Lion8cake -  The Main Dev behind the mod
+Basically, I am little fox - Creator of the World gen, large gems, Tiles and other fixes
+Ghast tear - World Creation UI
+Snickerbobble - The main concept creator

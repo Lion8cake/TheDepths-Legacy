@@ -1,0 +1,5 @@
+displayName = The Depths (Alternate Hell)
+author = Lion8cake, Basically, I am little fox, Ghast Tear
+version = 0.1.2
+includeSource = true
+includePDB = true
