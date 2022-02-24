@@ -1,6 +1,8 @@
 =========================================
 The Depths (Alternate Hell)
 =========================================
+0.2.0 Version
+22/02/2022 Update ;)
 
 Hello and welcome to the second mod we are working on to replace a vannilla biome in terraria. This time we are replacing the Underworld with the depths.
 The Depths is focused around Gems and murcury and was a concept done y snickerbobble in 2015. Currently this mod is in early public release so many features may be missing or there may be a few bugs.
@@ -8,16 +10,24 @@ The Depths is focused around Gems and murcury and was a concept done y snickerbo
 We encourage people make new worlds as this mod adds world generation to new worlds that allows the new content to be accessed.
 
 =========================================
--=Features=-
+Change Log
 =========================================
-World generation
-World Creation UI
-whole new Gem type
-81 Items
-13 NPCs
-36 Tiles
-5 Walls
-8 Buffs
+Added Quartz Block
+Added Quartz Pillar
+Added Core Builder 
+Added Large Crystal (experimental)
+Added Music Box
+Added Depths Music
+Added Depths Background
+Added Depths Git
+Added Shale Brick
+Added Shade Brick
+Added Multiple Recipes to change Depths items to Underworld Items and vis versa 
+Changed Name of Sapphire Serpent from Gummy Wyrm (whoops)
+Changed Way That Depths worlds Register (already exsisting worlds with depths will break)
+Changed a few minor bugs 
+Changed Cheese with Arqurite and Quart where they weren't Explosion Resistant
+Chaged Sapphire Serpents to be rarer
 
 ==========================================
 -=Credits=-

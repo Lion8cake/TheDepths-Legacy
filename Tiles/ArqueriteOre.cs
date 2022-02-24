@@ -49,5 +49,10 @@ namespace TheDepths.Tiles
 				player.AddBuff(ModContent.BuffType<MercuryPoisoning>(), Main.rand.Next(10, 20));
 			}
 		}
+		
+		public override bool CanExplode(int i, int j)
+		{
+			return false;
+		}	
 	}
 }

@@ -51,7 +51,7 @@ namespace TheDepths.NPCs
         {
             if (spawnInfo.player.ZoneUnderworldHeight && TheDepthsWorldGen.depthsorHell)
             {
-                return 1.5f;
+                return 1f;
             }
             return 0f;
         }
@@ -120,7 +120,7 @@ namespace TheDepths.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Gummy Wyrm");
+            DisplayName.SetDefault("Sapphire Serpent");
         }
 
         public override void Init()

@@ -32,5 +32,10 @@ namespace TheDepths.Tiles
 			mineResist = 2f;
 			minPick = 110;
 		}
+		
+		public override bool CanExplode(int i, int j)
+		{
+			return false;
+		}
 	}
 }
