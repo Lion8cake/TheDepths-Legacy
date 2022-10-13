@@ -30,6 +30,7 @@ namespace TheDepths.NPCs
 			npc.value = 120f;
 			npc.knockBackResist = 0.5f;
 			npc.aiStyle = 14;
+			npc.lavaImmune = true;
 			aiType = NPCID.GiantBat;
 			animationType = NPCID.GiantBat;
 			banner = npc.type;

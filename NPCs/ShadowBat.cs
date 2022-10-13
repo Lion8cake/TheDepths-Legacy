@@ -29,6 +29,7 @@ namespace TheDepths.NPCs
 			npc.DeathSound = SoundID.NPCDeath2;
 			npc.value = 400f;
 			npc.knockBackResist = 0.5f;
+			npc.lavaImmune = true;
 			npc.aiStyle = 14;
 			aiType = NPCID.GiantBat;
 			animationType = NPCID.GiantBat;

@@ -32,6 +32,7 @@ namespace TheDepths.NPCs
             npc.noGravity = true;
             npc.noTileCollide = true;
             npc.knockBackResist = 0.5f;
+			npc.lavaImmune = true;
             npc.aiStyle = 22;
             aiType = NPCID.FloatyGross;
             banner = npc.type;

@@ -28,6 +28,7 @@ namespace TheDepths.NPCs
 			npc.HitSound = SoundID.NPCHit1;
 			npc.DeathSound = SoundID.NPCDeath6;
 			//Sound 3 and 4 
+			npc.lavaImmune = true;
 			npc.value = 700f;
 			npc.knockBackResist = 0.5f;
 			npc.aiStyle = 3;

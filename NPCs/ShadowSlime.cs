@@ -32,6 +32,7 @@ namespace TheDepths.NPCs
 			npc.aiStyle = 1;
 			aiType = NPCID.Crimslime;
 			animationType = NPCID.Crimslime;
+			npc.lavaImmune = true;
 			banner = npc.type;
 			bannerItem = ModContent.ItemType<ShadowSlimeBanner>();
 		}
