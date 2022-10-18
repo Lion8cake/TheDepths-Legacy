@@ -13,13 +13,13 @@ namespace TheDepths.Tiles
 {
     public class LivingFog : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileLighted[Type] = true;
-            soundType = SoundID.Dig;
-            drop = ItemType<Items.Placeable.LivingFog>();
+            HitSound = SoundID.Dig;
+            ItemDrop = ItemType<Items.Placeable.LivingFog>();
             AddMapEntry(new Color(185, 197, 200), (LocalizedText)null);
-            animationFrameHeight = 90;
+            AnimationFrameHeight = 90;
             Main.tileSolid[Type] = false;
             Main.tileNoAttach[Type] = false;
             Main.tileFrameImportant[Type] = false;
@@ -32,10 +32,10 @@ namespace TheDepths.Tiles
             };
             TileObjectData.newTile.CoordinateWidth = 16;
             TileObjectData.newTile.CoordinatePadding = 2;
-            TileObjectData.newTile.HookCheck = new PlacementHook(new Func<int, int, int, int, int, int>(CanPlaceAlter), -1, 0, true);
+            //TileObjectData.newTile.HookCheckIfCanPlace = new PlacementHook(new Func<int, int, int, int, int, int>(CanPlaceAlter), -1, 0, true);
             TileObjectData.newTile.UsesCustomCanPlace = true;
-            TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(new Func<int, int, int, int, int, int>(AfterPlacement),
-                -1, 0, false);
+            //TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(new Func<int, int, int, int, int, int>(AfterPlacement),
+                //-1, 0, false);
             TileObjectData.addTile(Type);
         }
 
@@ -55,7 +55,7 @@ namespace TheDepths.Tiles
         public static int AfterPlacement(int i, int j, int type, int style, int direction)
         {
             if (Main.netMode == NetmodeID.MultiplayerClient)
-                NetMessage.SendTileRange(Main.myPlayer, i, j, 1, 1, TileChangeType.None);
+                NetMessage.SendTileSquare(Main.myPlayer, i, j, 1, 1, TileChangeType.None);
             return 1;
         }
 
@@ -68,12 +68,12 @@ namespace TheDepths.Tiles
                 new List<int>() { i + 1, j },
                 new List<int>() { i, j + 1 }
             };
-            if (Main.tile[i, j].wall != 0)
+            if (Main.tile[i, j].WallType != 0)
                 return true;
             for (int index = 0; index < intListList.Count; ++index)
             {
                 Tile tile = Main.tile[intListList[index][0], intListList[index][1]];
-                if (tile.active() && (Main.tileSolid[tile.type] || TheDepths.livingFireBlockList.Contains(tile.type)))
+                if (tile.HasTile && (Main.tileSolid[tile.TileType] || TheDepths.livingFireBlockList.Contains(tile.TileType)))
                     return true;
             }
             return false;

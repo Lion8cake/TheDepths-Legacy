@@ -8,10 +8,10 @@ namespace TheDepths.Walls
 {
 	public class ArqueriteBrickWall : ModWall
 	{
-		public override void SetDefaults() {
+		public override void SetStaticDefaults() {
 			Main.wallHouse[Type] = true;
-			dustType = ModContent.DustType<ArqueriteDust>();
-			drop = ModContent.ItemType<Items.Placeable.ArqueriteBrickWall>();
+			DustType = ModContent.DustType<ArqueriteDust>();
+			ItemDrop = ModContent.ItemType<Items.Placeable.ArqueriteBrickWall>();
 			AddMapEntry(new Color(38, 45, 55));
 		}
 		

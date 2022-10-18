@@ -10,19 +10,19 @@ namespace TheDepths.Projectiles
 {
 	public override void SetDefaults()
 	{
-		projectile.width = 10;
-		projectile.height = 10;
-		projectile.alpha = 255;
-		projectile.penetrate = 2;
-		projectile.friendly = true;
-		projectile.magic = true;
+		Projectile.width = 10;
+		Projectile.height = 10;
+		Projectile.alpha = 255;
+		Projectile.penetrate = 2;
+		Projectile.friendly = true;
+		Projectile.DamageType = DamageClass.Magic;
 	}
 
 	public override void AI()
 	{
 		for (int i = 0; i < 2; i++)
 		{
-			int num = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, mod.DustType("BlackGemsparkDust"), projectile.velocity.X, projectile.velocity.Y, 150, default(Color), 1.25f);
+			int num = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, Mod.Find<ModDust>("BlackGemsparkDust").Type, Projectile.velocity.X, Projectile.velocity.Y, 150, default(Color), 1.25f);
 			Main.dust[num].noGravity = true;
 			Dust obj = Main.dust[num];
 			obj.velocity *= 0.3f;
@@ -33,7 +33,7 @@ namespace TheDepths.Projectiles
 	{
 		for (int i = 0; i < 8; i++)
 		{
-			int num = Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("BlackGemsparkDust"), projectile.velocity.X * 0.75f, projectile.velocity.Y * 0.75f, 150);
+			int num = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, Mod.Find<ModDust>("BlackGemsparkDust").Type, Projectile.velocity.X * 0.75f, Projectile.velocity.Y * 0.75f, 150);
 			Main.dust[num].noGravity = true;
 		}
 	}

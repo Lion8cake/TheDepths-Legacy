@@ -11,15 +11,15 @@ namespace TheDepths.Tiles
 {
     public class ShadowBrick : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileSolid[Type] = true;
             Main.tileMergeDirt[Type] = true;
             Main.tileBlockLight[Type] = true;
             Main.tileLighted[Type] = false;
-            drop = ModContent.ItemType<Items.Placeable.ShadowBrick>();
+            ItemDrop = ModContent.ItemType<Items.Placeable.ShadowBrick>();
             AddMapEntry(new Color(26, 24, 37));
-			dustType = ModContent.DustType<ShadowDust>();
+			DustType = ModContent.DustType<ShadowDust>();
         }
 
         public override void NumDust(int i, int j, bool fail, ref int num)

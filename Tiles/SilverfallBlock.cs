@@ -9,13 +9,13 @@ namespace TheDepths.Tiles
 {
     public class SilverfallBlock : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileLighted[Type] = false;
-            soundType = SoundID.Dig;
-            drop = ItemType<Items.Placeable.SilverfallBlock>();
+            HitSound = SoundID.Dig;
+            ItemDrop = ItemType<Items.Placeable.SilverfallBlock>();
             AddMapEntry(new Color(232, 233, 234), (LocalizedText)null);
-            animationFrameHeight = 90;
+            AnimationFrameHeight = 90;
             Main.tileSolid[Type] = true;
             Main.tileBlockLight[Type] = true;
             Main.tileNoAttach[Type] = false;

@@ -9,6 +9,8 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using TheDepths.Items.Banners;
+using Terraria.GameContent.ItemDropRules;
+using AltLibrary.Common.Systems;
 
 namespace TheDepths.NPCs
 {
@@ -16,33 +18,39 @@ namespace TheDepths.NPCs
 	{
 		public override void SetStaticDefaults() {
 			DisplayName.SetDefault("Gold Bat");
-			Main.npcFrameCount[npc.type] = 4;
+			Main.npcFrameCount[NPC.type] = 4;
 		}
 
 		public override void SetDefaults() {
-			npc.width = 28;
-			npc.height = 28;
-			npc.damage = 25;
-			npc.defense = 10;
-			npc.lifeMax = 320;
-			npc.HitSound = SoundID.NPCHit1;
-			npc.DeathSound = SoundID.NPCDeath2;
-			npc.value = 60f;
-			npc.knockBackResist = 0.5f;
-			npc.aiStyle = 14;
-			aiType = NPCID.GiantBat;
-			animationType = NPCID.GiantBat;
-			banner = npc.type;
-			bannerItem = ModContent.ItemType<GoldBatBanner>();
+			NPC.width = 28;
+			NPC.height = 28;
+			NPC.damage = 25;
+			NPC.defense = 10;
+			NPC.lifeMax = 320;
+			NPC.HitSound = SoundID.NPCHit1;
+			NPC.DeathSound = SoundID.NPCDeath2;
+			NPC.lavaImmune = true;
+			NPC.value = 60f;
+			NPC.knockBackResist = 0.5f;
+			NPC.aiStyle = 14;
+			AIType = NPCID.GiantBat;
+			AnimationType = NPCID.GiantBat;
+			Banner = NPC.type;
+			BannerItem = ModContent.ItemType<GoldBatBanner>();
 		}
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			if (spawnInfo.player.ZoneUnderworldHeight && TheDepthsWorldGen.depthsorHell)
+			if (spawnInfo.Player.ZoneUnderworldHeight && WorldBiomeManager.WorldHell == "TheDepths/AltDepthsBiome")
 			{
 				return 1.5f;
 			}
 			return 0f;
+		}
+
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
+		{
+			npcLoot.Add(ItemDropRule.Common(ItemID.Topaz, 10, 1, 1));
 		}
 	}
 }

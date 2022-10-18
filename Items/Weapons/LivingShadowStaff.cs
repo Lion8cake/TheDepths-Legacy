@@ -1,3 +1,4 @@
+using Terraria.DataStructures;
 using TheDepths.Projectiles.Summons;
 using TheDepths.Items.Placeable;
 using Microsoft.Xna.Framework;
@@ -11,30 +12,30 @@ namespace TheDepths.Items.Weapons
 	{
 		public override void SetStaticDefaults() {
 			Tooltip.SetDefault("Summons a Silhouette to fight for you");
-			ItemID.Sets.GamepadWholeScreenUseRange[item.type] = true;
-			ItemID.Sets.LockOnIgnoresCollision[item.type] = true;
+			ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true;
+			ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
 		}
 
 		public override void SetDefaults() {
-			item.damage = 25;
-			item.summon = true;
-			item.mana = 10;
-			item.width = 26;
-			item.height = 28;
-			item.useTime = 36;
-			item.useAnimation = 36;
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.noMelee = true;
-			item.knockBack = 1;
-			item.value = Item.buyPrice(0, 0, 100, 0);
-			item.rare = ItemRarityID.Orange;
-			item.UseSound = SoundID.Item44;
-			item.shoot = ModContent.ProjectileType<LivingShadowSummonProj>();
-			item.buffType = ModContent.BuffType<Buffs.LivingShadowSummonBuff>();
+			Item.damage = 25;
+			Item.DamageType = DamageClass.Summon;
+			Item.mana = 10;
+			Item.width = 26;
+			Item.height = 28;
+			Item.useTime = 36;
+			Item.useAnimation = 36;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.noMelee = true;
+			Item.knockBack = 1;
+			Item.value = Item.buyPrice(0, 0, 100, 0);
+			Item.rare = ItemRarityID.Orange;
+			Item.UseSound = SoundID.Item44;
+			Item.shoot = ModContent.ProjectileType<LivingShadowSummonProj>();
+			Item.buffType = ModContent.BuffType<Buffs.LivingShadowSummonBuff>();
 		}
 
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack) {
-			player.AddBuff(item.buffType, 2);
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) {
+			player.AddBuff(Item.buffType, 2);
 			position = Main.MouseWorld;
 			return true;
 		}

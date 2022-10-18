@@ -8,37 +8,36 @@ namespace TheDepths.Tiles
 {
 	public class ArqueriteOre : ModTile
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			TileID.Sets.Ore[Type] = true;
 			Main.tileSpelunker[Type] = true;
-			Main.tileValue[Type] = 500;
+			Main.tileOreFinderPriority[Type] = 500;
 			Main.tileShine2[Type] = true;
 			Main.tileShine[Type] = 975;
 			Main.tileMergeDirt[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-			dustType = mod.DustType("ArqueriteDust");
-			Main.tileMerge[Type][mod.TileType("Shalestone")] = true;
-			Main.tileMerge[Type][mod.TileType("Quartz")] = true;
-			Main.tileMerge[Type][mod.TileType("ShaleBlock")] = true;
-			Main.tileMerge[Type][mod.TileType("ShalestoneAmethyst")] = true;
-			Main.tileMerge[Type][mod.TileType("ShalestoneDiamond")] = true;
-			Main.tileMerge[Type][mod.TileType("ShalestoneEmerald")] = true;
-			Main.tileMerge[Type][mod.TileType("ShalestoneRuby")] = true;
-			Main.tileMerge[Type][mod.TileType("ShalestoneSapphire")] = true;
-			Main.tileMerge[Type][mod.TileType("ShalestoneTopaz")] = true;
-			Main.tileMerge[Type][mod.TileType("OnyxShalestone")] = true;
+			DustType = Mod.Find<ModDust>("ArqueriteDust").Type;
+			Main.tileMerge[Type][Mod.Find<ModTile>("Shalestone").Type] = true;
+			Main.tileMerge[Type][Mod.Find<ModTile>("Quartz").Type] = true;
+			Main.tileMerge[Type][Mod.Find<ModTile>("ShaleBlock").Type] = true;
+			Main.tileMerge[Type][Mod.Find<ModTile>("ShalestoneAmethyst").Type] = true;
+			Main.tileMerge[Type][Mod.Find<ModTile>("ShalestoneDiamond").Type] = true;
+			Main.tileMerge[Type][Mod.Find<ModTile>("ShalestoneEmerald").Type] = true;
+			Main.tileMerge[Type][Mod.Find<ModTile>("ShalestoneRuby").Type] = true;
+			Main.tileMerge[Type][Mod.Find<ModTile>("ShalestoneSapphire").Type] = true;
+			Main.tileMerge[Type][Mod.Find<ModTile>("ShalestoneTopaz").Type] = true;
+			Main.tileMerge[Type][Mod.Find<ModTile>("OnyxShalestone").Type] = true;
 
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Arquerite Ore");
 			AddMapEntry(new Color(119, 134, 162), name);
 
-			drop = ModContent.ItemType<Items.Placeable.ArqueriteOre>();
-			soundType = SoundID.Tink;
-			soundStyle = 1;
-			mineResist = 2f;
-			minPick = 65;
+			ItemDrop = ModContent.ItemType<Items.Placeable.ArqueriteOre>();
+			HitSound = SoundID.Tink;
+			MineResist = 2f;
+			MinPick = 65;
 		}
 		
 		public override void NearbyEffects(int i, int j, bool closer)

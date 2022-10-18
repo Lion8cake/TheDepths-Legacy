@@ -14,29 +14,28 @@ namespace TheDepths.Items
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 26;
-            item.useStyle = ItemUseStyleID.EatingUsing;
-            item.useAnimation = 15;
-            item.useTime = 15;
-            item.useTurn = true;
-            item.UseSound = SoundID.Item3;
-            item.maxStack = 30;
-            item.consumable = true;
-            item.rare = ItemRarityID.LightRed;
-            item.value = 2500;
-            item.buffType = ModContent.BuffType<Buffs.FlaskofMercury>();
-            item.buffTime = 72000;
+            Item.width = 20;
+            Item.height = 26;
+            Item.useStyle = ItemUseStyleID.EatFood;
+            Item.useAnimation = 15;
+            Item.useTime = 15;
+            Item.useTurn = true;
+            Item.UseSound = SoundID.Item3;
+            Item.maxStack = 30;
+            Item.consumable = true;
+            Item.rare = ItemRarityID.LightRed;
+            Item.value = 2500;
+            Item.buffType = ModContent.BuffType<Buffs.FlaskofMercury>();
+            Item.buffTime = 72000;
         }
 		
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.BottledWater, 1);
 			recipe.AddIngredient(ModContent.ItemType<Items.Placeable.ArqueriteOre>(), 3);
 			recipe.AddTile(TileID.ImbuingStation);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
 		}
     }
 }

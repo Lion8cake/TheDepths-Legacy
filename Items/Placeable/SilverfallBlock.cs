@@ -13,10 +13,10 @@ namespace TheDepths.Items.Placeable
 
         public override void SetDefaults()
         {
-            item.CloneDefaults(ItemID.LavafallBlock);
-            item.useStyle = ItemUseStyleID.SwingThrow;
-            item.consumable = true;
-            item.createTile = TileType<Tiles.SilverfallBlock>();
+            Item.CloneDefaults(ItemID.LavafallBlock);
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.consumable = true;
+            Item.createTile = TileType<Tiles.SilverfallBlock>();
         }
     }
 }

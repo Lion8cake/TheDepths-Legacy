@@ -9,14 +9,14 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using Terraria.World.Generation;
 using Terraria.Utilities;
+using Terraria.WorldBuilding;
 
 namespace TheDepths.Buffs
 {
 	public class MercuryBoiling : ModBuff
 	{
-		public override void SetDefaults() {
+		public override void SetStaticDefaults() {
 			DisplayName.SetDefault("Mercury Boiling");
 			Description.SetDefault("Slowly losing life");
 			Main.debuff[Type] = true;

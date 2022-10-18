@@ -9,6 +9,8 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using TheDepths.Items.Banners;
+using Terraria.GameContent.ItemDropRules;
+using AltLibrary.Common.Systems;
 
 namespace TheDepths.NPCs
 {
@@ -16,24 +18,25 @@ namespace TheDepths.NPCs
 	{
 		public override void SetStaticDefaults() {
 			DisplayName.SetDefault("Shadow Bat");
-			Main.npcFrameCount[npc.type] = 4;
+			Main.npcFrameCount[NPC.type] = 4;
 		}
 
 		public override void SetDefaults() {
-			npc.width = 48;
-			npc.height = 40;
-			npc.damage = 62;
-			npc.defense = 18;
-			npc.lifeMax = 220;
-			npc.HitSound = SoundID.NPCHit1;
-			npc.DeathSound = SoundID.NPCDeath2;
-			npc.value = 400f;
-			npc.knockBackResist = 0.5f;
-			npc.aiStyle = 14;
-			aiType = NPCID.GiantBat;
-			animationType = NPCID.GiantBat;
-			banner = npc.type;
-			bannerItem = ModContent.ItemType<ShadowBatBanner>();
+			NPC.width = 48;
+			NPC.height = 40;
+			NPC.damage = 62;
+			NPC.defense = 18;
+			NPC.lifeMax = 220;
+			NPC.HitSound = SoundID.NPCHit1;
+			NPC.DeathSound = SoundID.NPCDeath2;
+			NPC.value = 400f;
+			NPC.knockBackResist = 0.5f;
+			NPC.lavaImmune = true;
+			NPC.aiStyle = 14;
+			AIType = NPCID.GiantBat;
+			AnimationType = NPCID.GiantBat;
+			Banner = NPC.type;
+			BannerItem = ModContent.ItemType<ShadowBatBanner>();
 		}
 		
 		public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -43,11 +46,16 @@ namespace TheDepths.NPCs
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			if (Main.hardMode && spawnInfo.player.ZoneUnderworldHeight && TheDepthsWorldGen.depthsorHell)
+			if (Main.hardMode && spawnInfo.Player.ZoneUnderworldHeight && WorldBiomeManager.WorldHell == "TheDepths/AltDepthsBiome")
 			{
 				return 1.5f;
 			}
 			return 0f;
+		}
+
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
+		{
+			npcLoot.Add(ItemDropRule.Common(ItemID.Emerald, 50, 1, 1));
 		}
 	}
 }

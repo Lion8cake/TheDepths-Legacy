@@ -9,18 +9,17 @@ namespace TheDepths.Items
     {
         public override void SetDefaults()
         {
-            item.CloneDefaults(ItemID.SapphireHook);
-            item.shootSpeed = 18f;
-            item.shoot = mod.ProjectileType("OnyxHook");
+            Item.CloneDefaults(ItemID.SapphireHook);
+            Item.shootSpeed = 18f;
+            Item.shoot = Mod.Find<ModProjectile>("OnyxHook").Type;
         }
 		
 		public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ModContent.ItemType<Onyx>(), 15);
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
         }
     }
 }

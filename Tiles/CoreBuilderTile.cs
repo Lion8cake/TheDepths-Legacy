@@ -4,12 +4,13 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
+using Terraria.DataStructures;
 
 namespace TheDepths.Tiles
 {
 	public class CoreBuilderTile : ModTile
 	{
-		public override void SetDefaults() {
+		public override void SetStaticDefaults() {
 			Main.tileSolidTop[Type] = true;
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = true;
@@ -21,10 +22,10 @@ namespace TheDepths.Tiles
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Core Builder");
-			animationFrameHeight = 40;
+			AnimationFrameHeight = 40;
 			AddMapEntry(new Color(140, 17, 206), name);
-			dustType = ModContent.DustType<ArqueriteDust>();
-			disableSmartCursor = true;
+			DustType = ModContent.DustType<ArqueriteDust>();
+            TileID.Sets.DisableSmartCursor[Type] = true;
 		}
 
 		public override void NumDust(int i, int j, bool fail, ref int num) {
@@ -50,7 +51,7 @@ namespace TheDepths.Tiles
         }
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY) {
-			Item.NewItem(i * 16, j * 16, 32, 16, ModContent.ItemType<Items.Placeable.CoreBuilder>());
+			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ModContent.ItemType<Items.Placeable.CoreBuilder>());
 		}
 	}
 }

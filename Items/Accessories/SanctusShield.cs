@@ -22,12 +22,12 @@ namespace TheDepths.Items.Accessories
 
 		public override void SetDefaults()
 		{
-			item.rare = ItemRarityID.Lime;
-			item.width = 20;
-			item.value = 250000;
-			item.accessory = true;
-			item.height = 20;
-			item.defense = 1;
+			Item.rare = ItemRarityID.Lime;
+			Item.width = 20;
+			Item.value = 250000;
+			Item.accessory = true;
+			Item.height = 20;
+			Item.defense = 1;
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
@@ -49,12 +49,11 @@ namespace TheDepths.Items.Accessories
 		
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ModContent.ItemType<Items.Accessories.CrystalShield>(), 1);
 			recipe.AddIngredient(ItemID.AnkhCharm, 1);
 			recipe.AddTile(114);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,7 +10,7 @@ namespace TheDepths.Tiles
 {
 	public class QuartzChair : ModTile
 	{
-		public override void SetDefaults() {
+		public override void SetStaticDefaults() {
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = true;
 			Main.tileLavaDeath[Type] = true;
@@ -27,9 +28,9 @@ namespace TheDepths.Tiles
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Quartz Chair");
 			AddMapEntry(new Color(255, 255, 255), name);
-			disableSmartCursor = true;
-			adjTiles = new int[] { TileID.Chairs };
-			dustType = mod.DustType("QuartzCrystals");
+            TileID.Sets.DisableSmartCursor[Type] = true;
+			AdjTiles = new int[] { TileID.Chairs };
+			DustType = Mod.Find<ModDust>("QuartzCrystals").Type;
 		}
 
 		public override void NumDust(int i, int j, bool fail, ref int num) {
@@ -37,7 +38,7 @@ namespace TheDepths.Tiles
 		}
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY) {
-			Item.NewItem(i * 16, j * 16, 16, 32, ModContent.ItemType<Items.Placeable.QuartzChair>());
+			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 32, ModContent.ItemType<Items.Placeable.QuartzChair>());
 		}
 	}
 }

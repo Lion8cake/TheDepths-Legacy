@@ -13,19 +13,19 @@ namespace TheDepths.Items.Weapons
 		}
 
 		public override void SetDefaults() {
-			item.damage = 38;
-			item.melee = true;
-			item.width = 40;
-			item.height = 40;
-			item.useTime = 30;
-			item.useAnimation = 30; 
-			item.knockBack = 15;
-			item.value = Item.buyPrice(gold: 27);
-			item.rare = ItemRarityID.Orange;
-			item.UseSound = SoundID.Item1; 
-			item.autoReuse = true;
-			item.crit = 4;
-			item.useStyle = ItemUseStyleID.SwingThrow;
+			Item.damage = 38;
+			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
+			Item.width = 40;
+			Item.height = 40;
+			Item.useTime = 30;
+			Item.useAnimation = 30; 
+			Item.knockBack = 15;
+			Item.value = Item.buyPrice(gold: 27);
+			Item.rare = ItemRarityID.Orange;
+			Item.UseSound = SoundID.Item1; 
+			Item.autoReuse = true;
+			Item.crit = 4;
+			Item.useStyle = ItemUseStyleID.Swing;
 		}
 
 		public override void MeleeEffects(Player player, Rectangle hitbox) {
@@ -36,11 +36,10 @@ namespace TheDepths.Items.Weapons
 		
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ModContent.ItemType<Items.Placeable.ArqueriteBar>(), 20);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

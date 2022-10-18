@@ -9,6 +9,7 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using TheDepths.Items.Banners;
+using AltLibrary.Common.Systems;
 
 namespace TheDepths.NPCs
 {
@@ -16,24 +17,25 @@ namespace TheDepths.NPCs
 	{
 		public override void SetStaticDefaults() {
 			DisplayName.SetDefault("Shadow Slime");
-			Main.npcFrameCount[npc.type] = 2; 
+			Main.npcFrameCount[NPC.type] = 2; 
 		}
 		
 		public override void SetDefaults() {
-			npc.width = 32;
-			npc.height = 32;
-			npc.damage = 34;
-			npc.defense = 12;
-			npc.lifeMax = 55;
-			npc.HitSound = SoundID.NPCHit1;
-			npc.DeathSound = SoundID.NPCDeath1;
-			npc.value = 400f;
-			npc.knockBackResist = 0.5f;
-			npc.aiStyle = 1;
-			aiType = NPCID.Crimslime;
-			animationType = NPCID.Crimslime;
-			banner = npc.type;
-			bannerItem = ModContent.ItemType<ShadowSlimeBanner>();
+			NPC.width = 32;
+			NPC.height = 32;
+			NPC.damage = 34;
+			NPC.defense = 12;
+			NPC.lifeMax = 55;
+			NPC.HitSound = SoundID.NPCHit1;
+			NPC.DeathSound = SoundID.NPCDeath1;
+			NPC.value = 400f;
+			NPC.knockBackResist = 0.5f;
+			NPC.aiStyle = 1;
+			AIType = NPCID.Crimslime;
+			AnimationType = NPCID.Crimslime;
+			NPC.lavaImmune = true;
+			Banner = NPC.type;
+			BannerItem = ModContent.ItemType<ShadowSlimeBanner>();
 		}
 		
 		public override void OnHitPlayer(Player target, int damage, bool crit)
@@ -43,7 +45,7 @@ namespace TheDepths.NPCs
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			if (spawnInfo.player.ZoneUnderworldHeight && TheDepthsWorldGen.depthsorHell)
+			if (spawnInfo.Player.ZoneUnderworldHeight && WorldBiomeManager.WorldHell == "TheDepths/AltDepthsBiome")
 			{
 				return 1.5f;
 			}

@@ -11,7 +11,7 @@ namespace TheDepths.Tiles
 {
     public class LargeCrystal : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
 		{
 			Main.tileFrameImportant[Type] = true;
 			Main.tileLavaDeath[Type] = true;
@@ -56,14 +56,14 @@ namespace TheDepths.Tiles
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Large Crystal");
 			AddMapEntry(new Color(255, 255, 255), name);
-			dustType = mod.DustType("QuartzCrystals");
-			disableSmartCursor = true;
-			adjTiles = new int[] { Type };
+			DustType = Mod.Find<ModDust>("QuartzCrystals").Type;
+            TileID.Sets.DisableSmartCursor[Type] = true;
+			AdjTiles = new int[] { Type };
 		}
 		
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 64, 32, ModContent.ItemType<Items.Placeable.Quartz>(), 4);
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 64, 32, ModContent.ItemType<Items.Placeable.Quartz>(), 4);
         }
     }
 }

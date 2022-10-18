@@ -8,8 +8,8 @@ namespace TheDepths.Walls
 {
 	public class ArqueriteBrickWallUnsafe : ModWall
 	{
-		public override void SetDefaults() {
-			dustType = ModContent.DustType<ArqueriteDust>();
+		public override void SetStaticDefaults() {
+			DustType = ModContent.DustType<ArqueriteDust>();
 			AddMapEntry(new Color(38, 45, 55));
 		}
 		
