@@ -11,11 +11,11 @@ namespace TheDepths.Items
 	public class ShadowShrub : ModItem
 	{
 		public override void SetDefaults() {
-			item.width = 24;
-			item.height = 28;
-			item.value = 100;
-			item.rare = ItemRarityID.White;
-			item.maxStack = 99;
+			Item.width = 24;
+			Item.height = 28;
+			Item.value = 100;
+			Item.rare = ItemRarityID.White;
+			Item.maxStack = 99;
 		}
 	}
 }

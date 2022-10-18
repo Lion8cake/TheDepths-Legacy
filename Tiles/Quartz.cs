@@ -8,7 +8,7 @@ namespace TheDepths.Tiles
 {
 	public class Quartz : ModTile
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			TileID.Sets.Ore[Type] = true;
 			Main.tileSpelunker[Type] = true;
@@ -17,27 +17,26 @@ namespace TheDepths.Tiles
 			Main.tileMergeDirt[Type] = true;
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
-			Main.tileMerge[Type][mod.TileType("ArqueriteOre")] = true;
-			Main.tileMerge[Type][mod.TileType("Shalestone")] = true;
-			Main.tileMerge[Type][mod.TileType("ShaleBlock")] = true;
-			Main.tileMerge[Type][mod.TileType("ShalestoneAmethyst")] = true;
-			Main.tileMerge[Type][mod.TileType("ShalestoneDiamond")] = true;
-			Main.tileMerge[Type][mod.TileType("ShalestoneEmerald")] = true;
-			Main.tileMerge[Type][mod.TileType("ShalestoneRuby")] = true;
-			Main.tileMerge[Type][mod.TileType("ShalestoneSapphire")] = true;
-			Main.tileMerge[Type][mod.TileType("ShalestoneTopaz")] = true;
-			Main.tileMerge[Type][mod.TileType("OnyxShalestone")] = true;
-			dustType = mod.DustType("QuartzCrystals");
+			Main.tileMerge[Type][Mod.Find<ModTile>("ArqueriteOre").Type] = true;
+			Main.tileMerge[Type][Mod.Find<ModTile>("Shalestone").Type] = true;
+			Main.tileMerge[Type][Mod.Find<ModTile>("ShaleBlock").Type] = true;
+			Main.tileMerge[Type][Mod.Find<ModTile>("ShalestoneAmethyst").Type] = true;
+			Main.tileMerge[Type][Mod.Find<ModTile>("ShalestoneDiamond").Type] = true;
+			Main.tileMerge[Type][Mod.Find<ModTile>("ShalestoneEmerald").Type] = true;
+			Main.tileMerge[Type][Mod.Find<ModTile>("ShalestoneRuby").Type] = true;
+			Main.tileMerge[Type][Mod.Find<ModTile>("ShalestoneSapphire").Type] = true;
+			Main.tileMerge[Type][Mod.Find<ModTile>("ShalestoneTopaz").Type] = true;
+			Main.tileMerge[Type][Mod.Find<ModTile>("OnyxShalestone").Type] = true;
+			DustType = Mod.Find<ModDust>("QuartzCrystals").Type;
 
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Quartz");
 			AddMapEntry(new Color(255, 255, 255), name);
 
-			drop = ModContent.ItemType<Items.Placeable.Quartz>();
-			soundType = SoundID.Tink;
-			soundStyle = 1;
-			mineResist = 2f;
-			minPick = 65;
+			ItemDrop = ModContent.ItemType<Items.Placeable.Quartz>();
+			HitSound = SoundID.Tink;
+			MineResist = 2f;
+			MinPick = 65;
 		}
 		
 		public override bool CanExplode(int i, int j)

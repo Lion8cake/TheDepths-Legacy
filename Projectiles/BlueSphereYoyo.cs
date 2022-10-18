@@ -7,25 +7,25 @@ namespace TheDepths.Projectiles
 	public class BlueSphereYoyo : ModProjectile
 	{
 		public override void SetStaticDefaults() {
-			ProjectileID.Sets.YoyosLifeTimeMultiplier[projectile.type] = 16f;
-			ProjectileID.Sets.YoyosMaximumRange[projectile.type] = 230f;
-			ProjectileID.Sets.YoyosTopSpeed[projectile.type] = 10f;
+			ProjectileID.Sets.YoyosLifeTimeMultiplier[Projectile.type] = 16f;
+			ProjectileID.Sets.YoyosMaximumRange[Projectile.type] = 230f;
+			ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 10f;
 		}
 
 		public override void SetDefaults() {
-			projectile.extraUpdates = 0;
-			projectile.width = 16;
-			projectile.height = 16;
-			projectile.aiStyle = 99;
-			projectile.friendly = true;
-			projectile.penetrate = -1;
-			projectile.melee = true;
-			projectile.scale = 1f;
+			Projectile.extraUpdates = 0;
+			Projectile.width = 16;
+			Projectile.height = 16;
+			Projectile.aiStyle = 99;
+			Projectile.friendly = true;
+			Projectile.penetrate = -1;
+			Projectile.DamageType = DamageClass.Melee;
+			Projectile.scale = 1f;
 		}
 		
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) {
-			projectile.ai[0] += 0.1f;
-			projectile.velocity *= 0.75f;
+			Projectile.ai[0] += 0.1f;
+			Projectile.velocity *= 0.75f;
 			target.AddBuff(ModContent.BuffType<Buffs.FreezingWater>(), 150, false);
 		}
 

@@ -9,6 +9,7 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using TheDepths.Items.Banners;
+using AltLibrary.Common.Systems;
 
 namespace TheDepths.NPCs
 {
@@ -16,29 +17,30 @@ namespace TheDepths.NPCs
 	{
 		public override void SetStaticDefaults() {
 			DisplayName.SetDefault("Albino Bat");
-			Main.npcFrameCount[npc.type] = 4;
+			Main.npcFrameCount[NPC.type] = 4;
 		}
 
 		public override void SetDefaults() {
-			npc.width = 18;
-			npc.height = 24;
-			npc.damage = 24;
-			npc.defense = 9;
-			npc.lifeMax = 52;
-			npc.HitSound = SoundID.NPCHit1;
-			npc.DeathSound = SoundID.NPCDeath2;
-			npc.value = 120f;
-			npc.knockBackResist = 0.5f;
-			npc.aiStyle = 14;
-			aiType = NPCID.GiantBat;
-			animationType = NPCID.GiantBat;
-			banner = npc.type;
-			bannerItem = ModContent.ItemType<AlbinoBatBanner>();
+			NPC.width = 18;
+			NPC.height = 24;
+			NPC.damage = 24;
+			NPC.defense = 9;
+			NPC.lifeMax = 52;
+			NPC.HitSound = SoundID.NPCHit1;
+			NPC.DeathSound = SoundID.NPCDeath2;
+			NPC.value = 120f;
+			NPC.knockBackResist = 0.5f;
+			NPC.aiStyle = 14;
+			NPC.lavaImmune = true;
+			AIType = NPCID.GiantBat;
+			AnimationType = NPCID.GiantBat;
+			Banner = NPC.type;
+			BannerItem = ModContent.ItemType<AlbinoBatBanner>();
 		}
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			if (spawnInfo.player.ZoneUnderworldHeight && TheDepthsWorldGen.depthsorHell)
+			if (spawnInfo.Player.ZoneUnderworldHeight && WorldBiomeManager.WorldHell == "TheDepths/AltDepthsBiome")
 			{
 				return 1.5f;
 			}

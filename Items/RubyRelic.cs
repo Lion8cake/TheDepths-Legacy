@@ -15,11 +15,11 @@ namespace TheDepths.Items
 		}
 
 		public override void SetDefaults() {
-			item.width = 24;
-			item.height = 28;
-			item.value = 1000;
-			item.rare = ItemRarityID.White;
-			item.accessory = true;
+			Item.width = 24;
+			Item.height = 28;
+			Item.value = 1000;
+			Item.rare = ItemRarityID.White;
+			Item.accessory = true;
 		}
 	}
 }

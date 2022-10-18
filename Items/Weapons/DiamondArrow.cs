@@ -12,27 +12,26 @@ namespace TheDepths.Items.Weapons
 		}
 
 		public override void SetDefaults() {
-			item.damage = 12;
-			item.ranged = true;
-			item.width = 8;
-			item.height = 8;
-			item.maxStack = 999;
-			item.consumable = true; 
-			item.knockBack = 1.5f;
-			item.value = 80;
-			item.rare = ItemRarityID.Orange;
-			item.shoot = ModContent.ProjectileType<Projectiles.DiamondArrow>();
-			item.shootSpeed = 7f;
-			item.ammo = AmmoID.Arrow;
+			Item.damage = 12;
+			Item.DamageType = DamageClass.Ranged;
+			Item.width = 8;
+			Item.height = 8;
+			Item.maxStack = 999;
+			Item.consumable = true; 
+			Item.knockBack = 1.5f;
+			Item.value = 80;
+			Item.rare = ItemRarityID.Orange;
+			Item.shoot = ModContent.ProjectileType<Projectiles.DiamondArrow>();
+			Item.shootSpeed = 7f;
+			Item.ammo = AmmoID.Arrow;
 		}
 
 		public override void AddRecipes() {
-			ModRecipe recipe = new ModRecipe(mod);
+			Recipe recipe = CreateRecipe(33);
 			recipe.AddIngredient(40, 33);
 			recipe.AddIngredient(ModContent.ItemType<DiamondDust>(), 1);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this, 33);
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

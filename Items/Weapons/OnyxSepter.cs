@@ -16,35 +16,34 @@ namespace TheDepths.Items.Weapons
 	
 		public override void SetDefaults()
 		{
-			item.damage = 68;
-			item.magic = true;
-			item.mana = 6;
-			item.width = 30;
-			item.height = 30;
-			item.useTime = 32;
-			item.useAnimation = 32;
-			item.autoReuse = true;
-			item.useStyle = 5;
-			Item.staff[item.type] = true;
-			item.noMelee = true;
-			item.knockBack = 4f;
-			item.value = Item.sellPrice(0, 0, 80);
-			item.rare = 4;
-			item.UseSound = SoundID.Item43;
-			item.autoReuse = true;
-			item.shoot = mod.ProjectileType("OnyxBolt");
-			item.shootSpeed = 7.5f;
+			Item.damage = 68;
+			Item.DamageType = DamageClass.Magic;
+			Item.mana = 6;
+			Item.width = 30;
+			Item.height = 30;
+			Item.useTime = 32;
+			Item.useAnimation = 32;
+			Item.autoReuse = true;
+			Item.useStyle = 5;
+			Item.staff[Item.type] = true;
+			Item.noMelee = true;
+			Item.knockBack = 4f;
+			Item.value = Item.sellPrice(0, 0, 80);
+			Item.rare = 4;
+			Item.UseSound = SoundID.Item43;
+			Item.autoReuse = true;
+			Item.shoot = Mod.Find<ModProjectile>("OnyxBolt").Type;
+			Item.shootSpeed = 7.5f;
 		}
 		
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ModContent.ItemType<Items.Placeable.ArqueriteBar>(), 10);
 			recipe.AddIngredient(ModContent.ItemType<Items.Placeable.Geode>(), 6);
 			recipe.AddIngredient(ModContent.ItemType<Items.Placeable.Onyx>(), 8);
 			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

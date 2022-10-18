@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
@@ -8,7 +9,7 @@ namespace TheDepths.Tiles
 {
 	public class ArqueriteBar : ModTile
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			Main.tileShine[Type] = 1100;
 			Main.tileSolid[Type] = true;
@@ -19,7 +20,7 @@ namespace TheDepths.Tiles
 			TileObjectData.newTile.StyleHorizontal = true;
 			TileObjectData.newTile.LavaDeath = false;
 			TileObjectData.addTile(Type);
-			dustType = mod.DustType("ArqueriteDust");
+			DustType = Mod.Find<ModDust>("ArqueriteDust").Type;
 
 			AddMapEntry(new Color(71, 84, 105), Language.GetText("MapObject.MetalBar"));
 		}
@@ -27,10 +28,10 @@ namespace TheDepths.Tiles
 		public override bool Drop(int i, int j)
 		{
 			Tile t = Main.tile[i, j];
-			int style = t.frameX / 18;
+			int style = t.TileFrameX / 18;
 			if (style == 0)
 			{
-				Item.NewItem(i * 16, j * 16, 16, 16, ModContent.ItemType<Items.Placeable.ArqueriteBar>());
+				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 16, ModContent.ItemType<Items.Placeable.ArqueriteBar>());
 			}
 			return base.Drop(i, j);
 		}

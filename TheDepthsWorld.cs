@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.GameContent.Generation;
 using Terraria.ModLoader;
-using Terraria.World.Generation;
+using Terraria.WorldBuilding;
 using TheDepths.Tiles;
 using static Terraria.ModLoader.ModContent;
 using System;
@@ -18,7 +18,7 @@ using Terraria.ModLoader.IO;
 
 namespace TheDepths
 {
-    public class TheDepthsWorld : ModWorld
+    public class TheDepthsWorld : ModSystem
     {
 	/*
 	public static int depthTiles;

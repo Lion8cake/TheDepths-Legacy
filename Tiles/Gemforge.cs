@@ -4,12 +4,13 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
+using Terraria.DataStructures;
 
 namespace TheDepths.Tiles
 {
 	public class Gemforge : ModTile
 	{
-		public override void SetDefaults() {
+		public override void SetStaticDefaults() {
 			Main.tileSolidTop[Type] = true;
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = true;
@@ -22,9 +23,9 @@ namespace TheDepths.Tiles
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Gemforge");
 			AddMapEntry(new Color(140, 17, 206), name);
-			dustType = ModContent.DustType<ArqueriteDust>();
-			disableSmartCursor = true;
-			adjTiles = new int[] { TileID.Furnaces };
+			DustType = ModContent.DustType<ArqueriteDust>();
+            TileID.Sets.DisableSmartCursor[Type] = true;
+			AdjTiles = new int[] { TileID.Furnaces };
 		}
 
 		public override void NumDust(int i, int j, bool fail, ref int num) {
@@ -32,7 +33,7 @@ namespace TheDepths.Tiles
 		}
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY) {
-			Item.NewItem(i * 16, j * 16, 32, 16, ModContent.ItemType<Items.Placeable.Gemforge>());
+			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ModContent.ItemType<Items.Placeable.Gemforge>());
 		}
 	}
 }

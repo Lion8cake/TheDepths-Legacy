@@ -13,10 +13,10 @@ namespace TheDepths.Items.Placeable
 
         public override void SetDefaults()
         {
-            item.CloneDefaults(ItemID.LavafallWall);
-            item.useStyle = ItemUseStyleID.SwingThrow;
-            item.consumable = true;
-            item.createWall = WallType<Walls.SilverfallWall>();
+            Item.CloneDefaults(ItemID.LavafallWall);
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.consumable = true;
+            Item.createWall = WallType<Walls.SilverfallWall>();
         }
     }
 }

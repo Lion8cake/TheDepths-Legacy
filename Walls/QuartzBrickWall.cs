@@ -8,10 +8,10 @@ namespace TheDepths.Walls
 {
 	public class QuartzBrickWall : ModWall
 	{
-		public override void SetDefaults() {
+		public override void SetStaticDefaults() {
 			Main.wallHouse[Type] = true;
-			dustType = ModContent.DustType<QuartzCrystals>();
-			drop = ModContent.ItemType<Items.Placeable.QuartzBrickWall>();
+			DustType = ModContent.DustType<QuartzCrystals>();
+			ItemDrop = ModContent.ItemType<Items.Placeable.QuartzBrickWall>();
 			AddMapEntry(new Color(54, 68, 73));
 		}
 		

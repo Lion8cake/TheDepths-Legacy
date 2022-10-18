@@ -1,3 +1,4 @@
+using Terraria;
 using TheDepths.Items.Placeable;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -8,26 +9,25 @@ namespace TheDepths.Items.Placeable
 	{
 		public override void SetDefaults()
 		{
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.useTurn = true;
-			item.useAnimation = 15;
-			item.useTime = 10;
-			item.autoReuse = true;
-			item.maxStack = 999;
-			item.consumable = true;
-			item.createTile = ModContent.TileType<Tiles.QuartzBlock>();
-			item.width = 12;
-			item.height = 12;
-			item.rare = ItemRarityID.Green;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useTurn = true;
+			Item.useAnimation = 15;
+			Item.useTime = 10;
+			Item.autoReuse = true;
+			Item.maxStack = 999;
+			Item.consumable = true;
+			Item.createTile = ModContent.TileType<Tiles.QuartzBlock>();
+			Item.width = 12;
+			Item.height = 12;
+			Item.rare = ItemRarityID.Green;
 		}
 		
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ModContent.ItemType<Items.Placeable.Quartz>(), 2);
 			recipe.AddTile(TileID.Furnaces);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

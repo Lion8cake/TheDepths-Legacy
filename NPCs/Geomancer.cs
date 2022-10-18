@@ -9,6 +9,12 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using TheDepths.Items.Banners;
+using TheDepths.Items.Placeable;
+using Terraria.GameContent.ItemDropRules;
+using TheDepths.Items.Armor;
+using TheDepths.Items.Weapons;
+using TheDepths.Items.Accessories;
+using AltLibrary.Common.Systems;
 
 namespace TheDepths.NPCs
 {
@@ -16,39 +22,60 @@ namespace TheDepths.NPCs
 	{
 		public override void SetStaticDefaults() {
 			DisplayName.SetDefault("Geomancer");
-			Main.npcFrameCount[npc.type] = 16; 
+			Main.npcFrameCount[NPC.type] = 16; 
 		}
 
 		public override void SetDefaults() {
-			npc.width = 40;
-			npc.height = 80;
-			npc.damage = 40;
-			npc.defense = 16;
-			npc.lifeMax = 85;
-			npc.HitSound = SoundID.NPCHit1;
-			npc.DeathSound = SoundID.NPCDeath6;
+			NPC.width = 40;
+			NPC.height = 80;
+			NPC.damage = 40;
+			NPC.defense = 16;
+			NPC.lifeMax = 85;
+			NPC.HitSound = SoundID.NPCHit1;
+			NPC.DeathSound = SoundID.NPCDeath6;
 			//Sound 3 and 4 
-			npc.value = 700f;
-			npc.knockBackResist = 0.5f;
-			npc.aiStyle = 3;
-			aiType = NPCID.ChaosElemental;
-			animationType = NPCID.ChaosElemental;
-			banner = npc.type;
-			bannerItem = ModContent.ItemType<GeomancerBanner>();
+			NPC.lavaImmune = true;
+			NPC.value = 700f;
+			NPC.knockBackResist = 0.5f;
+			NPC.aiStyle = 3;
+			AIType = NPCID.ChaosElemental;
+			AnimationType = NPCID.ChaosElemental;
+			Banner = NPC.type;
+			BannerItem = ModContent.ItemType<GeomancerBanner>();
 		}
-		
-		public override void HitEffect(int hitDirection, double damage) {
-			if (npc.life <= 0)
+
+		public override void HitEffect(int hitDirection, double damage)
 		{
-			Gore.NewGore(npc.position, npc.velocity, 13);
-			Gore.NewGore(npc.position, npc.velocity, 12);
-			Gore.NewGore(npc.position, npc.velocity, 11);
+			if (Main.netMode == NetmodeID.Server)
+			{
+				return;
+			}
+
+			if (NPC.life <= 0)
+			{
+				var entitySource = NPC.GetSource_Death();
+
+				for (int i = 0; i < 3; i++)
+				{
+					Gore.NewGore(entitySource, NPC.position, new Vector2(Main.rand.Next(-6, 7), Main.rand.Next(-6, 7)), 13);
+					Gore.NewGore(entitySource, NPC.position, new Vector2(Main.rand.Next(-6, 7), Main.rand.Next(-6, 7)), 12);
+					Gore.NewGore(entitySource, NPC.position, new Vector2(Main.rand.Next(-6, 7), Main.rand.Next(-6, 7)), 11);
+				}
+			}
 		}
+
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
+		{
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PurplePlumbersHat>(), 5000, 1, 1));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Geode>(), 1, 1, 1));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ShadowSphere>(), 50, 1, 1));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<LivingShadowStaff>(), 50, 1, 1));
+			//npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<StoneRose>(), 50, 1, 1));
 		}
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			if (spawnInfo.player.ZoneUnderworldHeight && TheDepthsWorldGen.depthsorHell)
+			if (spawnInfo.Player.ZoneUnderworldHeight && WorldBiomeManager.WorldHell == "TheDepths/AltDepthsBiome")
 			{
 				return 1.5f;
 			}

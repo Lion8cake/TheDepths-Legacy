@@ -6,10 +6,10 @@ namespace TheDepths.Walls
 {
 	public class SilverfallWall : ModWall
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.wallHouse[Type] = true;
-            drop = ModContent.ItemType<Items.Placeable.SilverfallWall>();
+            ItemDrop = ModContent.ItemType<Items.Placeable.SilverfallWall>();
             AddMapEntry(new Color(96, 94, 98));
         }
 

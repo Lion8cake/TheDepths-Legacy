@@ -6,18 +6,18 @@ namespace TheDepths.Items.Placeable
 	public class ShadowShrubSeeds : ModItem
 	{
 		public override void SetDefaults() {
-			item.autoReuse = true;
-			item.useTurn = true;
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.useAnimation = 15;
-			item.useTime = 10;
-			item.maxStack = 99;
-			item.consumable = true;
-			item.placeStyle = 0;
-			item.width = 12;
-			item.height = 14;
-			item.value = 80;
-			item.createTile = ModContent.TileType<Tiles.ShadowShrub>();
+			Item.autoReuse = true;
+			Item.useTurn = true;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useAnimation = 15;
+			Item.useTime = 10;
+			Item.maxStack = 99;
+			Item.consumable = true;
+			Item.placeStyle = 0;
+			Item.width = 12;
+			Item.height = 14;
+			Item.value = 80;
+			Item.createTile = ModContent.TileType<Tiles.ShadowShrub>();
 		}
 	}
 }

@@ -3,15 +3,27 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
+using ReLogic.Content;
 
 namespace TheDepths.Projectiles
 {
     public class OnyxHook : ModProjectile
     {
+        private static Asset<Texture2D> chainTexture;
+
+        public override void Load()
+        {
+            chainTexture = ModContent.Request<Texture2D>("TheDepths/Projectiles/OnyxHookChain");
+        }
+
+        public override void Unload()
+        {
+            chainTexture = null;
+        }
+
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(ProjectileID.GemHookSapphire);
+            Projectile.CloneDefaults(ProjectileID.GemHookSapphire);
         }
 
         public override bool? CanUseGrapple(Player player)
@@ -19,7 +31,7 @@ namespace TheDepths.Projectiles
             int hooksOut = 0;
             for(int i = 0; i < 1000; i++)
             {
-                if(Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == projectile.type)
+                if(Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == Projectile.type)
                 {
                     hooksOut++;
                 }
@@ -51,29 +63,30 @@ namespace TheDepths.Projectiles
             speed = 15f;
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDrawExtras()
         {
-            Vector2 playerCenter = Main.player[projectile.owner].MountedCenter;
-            Vector2 center = projectile.Center;
-            Vector2 distToProj = playerCenter - projectile.Center;
-            float projRotation = distToProj.ToRotation() - 1.57f;
-            float distance = distToProj.Length();
-            while(distance > 30f && !float.IsNaN(distance))
+            Vector2 playerCenter = Main.player[Projectile.owner].MountedCenter;
+            Vector2 center = Projectile.Center;
+            Vector2 directionToPlayer = playerCenter - Projectile.Center;
+            float chainRotation = directionToPlayer.ToRotation() - MathHelper.PiOver2;
+            float distanceToPlayer = directionToPlayer.Length();
+
+            while (distanceToPlayer > 20f && !float.IsNaN(distanceToPlayer))
             {
-                distToProj.Normalize();
-                distToProj *= 24f;
-                center += distToProj;
-                distToProj = playerCenter - center;
-                distance = distToProj.Length();
-                Color drawColor = lightColor;
+                directionToPlayer /= distanceToPlayer;
+                directionToPlayer *= chainTexture.Height();
 
-                spriteBatch.Draw(mod.GetTexture("Projectiles/OnyxHookChain"), new Vector2(center.X - Main.screenPosition.X, center.Y - Main.screenPosition.Y),
-                    new Rectangle(0, 0, Main.chain30Texture.Width, Main.chain30Texture.Height), drawColor, projRotation,
-                    new Vector2(Main.chain30Texture.Width * 0.5f, Main.chain30Texture.Height * 0.5f), 1f, SpriteEffects.None, 0f);
+                center += directionToPlayer;
+                directionToPlayer = playerCenter - center;
+                distanceToPlayer = directionToPlayer.Length();
+
+                Color drawColor = Lighting.GetColor((int)center.X / 16, (int)(center.Y / 16));
+
+                Main.EntitySpriteDraw(chainTexture.Value, center - Main.screenPosition,
+                    chainTexture.Value.Bounds, drawColor, chainRotation,
+                    chainTexture.Size() * 0.5f, 1f, SpriteEffects.None, 0);
             }
-            return true;
+            return false;
         }
-
-
     }
 }

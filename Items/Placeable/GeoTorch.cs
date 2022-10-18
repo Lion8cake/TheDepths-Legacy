@@ -10,21 +10,21 @@ namespace TheDepths.Items.Placeable
 	{
 
 		public override void SetDefaults() {
-			item.width = 10;
-			item.height = 12;
-			item.maxStack = 99;
-			item.holdStyle = 1;
-			item.noWet = true;
-			item.useTurn = true;
-			item.autoReuse = true;
-			item.useAnimation = 15;
-			item.useTime = 10;
-			item.rare = ItemRarityID.White;
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.consumable = true;
-			item.createTile = ModContent.TileType<Tiles.GeoTorch>();
-			item.flame = true;
-			item.value = 300;
+			Item.width = 10;
+			Item.height = 12;
+			Item.maxStack = 99;
+			Item.holdStyle = 1;
+			Item.noWet = true;
+			Item.useTurn = true;
+			Item.autoReuse = true;
+			Item.useAnimation = 15;
+			Item.useTime = 10;
+			Item.rare = ItemRarityID.White;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.consumable = true;
+			Item.createTile = ModContent.TileType<Tiles.GeoTorch>();
+			Item.flame = true;
+			Item.value = 300;
 		}
 
 		public override void HoldItem(Player player) {
@@ -36,8 +36,8 @@ namespace TheDepths.Items.Placeable
 		}
 
 		public override void PostUpdate() {
-			if (!item.wet) {
-				Lighting.AddLight((int)((item.position.X + item.width / 2) / 16f), (int)((item.position.Y + item.height / 2) / 16f), 1f, 1f, 1f);
+			if (!Item.wet) {
+				Lighting.AddLight((int)((Item.position.X + Item.width / 2) / 16f), (int)((Item.position.Y + Item.height / 2) / 16f), 1f, 1f, 1f);
 			}
 		}
 
@@ -47,11 +47,10 @@ namespace TheDepths.Items.Placeable
 		
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.Torch, 3);
 			recipe.AddIngredient(ModContent.ItemType<Items.Placeable.Geode>(), 1);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

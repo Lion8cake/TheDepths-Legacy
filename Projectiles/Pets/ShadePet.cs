@@ -7,28 +7,28 @@ namespace TheDepths.Projectiles.Pets
 	public class ShadePet : ModProjectile
 	{
 		public override void SetStaticDefaults() {
-			Main.projPet[projectile.type] = true;
+			Main.projPet[Projectile.type] = true;
 		}
 
 		public override void SetDefaults() {
-			projectile.CloneDefaults(ProjectileID.ZephyrFish);
-			aiType = ProjectileID.ZephyrFish;
+			Projectile.CloneDefaults(ProjectileID.ZephyrFish);
+			AIType = ProjectileID.ZephyrFish;
 		}
 
 		public override bool PreAI() {
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 			player.zephyrfish = false;
 			return true;
 		}
 
 		public override void AI() {
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 			TheDepthsPlayer modPlayer = player.GetModPlayer<TheDepthsPlayer>();
 			if (player.dead) {
 				modPlayer.ShadePet = false;
 			}
 			if (modPlayer.ShadePet) {
-				projectile.timeLeft = 2;
+				Projectile.timeLeft = 2;
 			}
 		}
 	}

@@ -16,11 +16,11 @@ namespace TheDepths.Items.Armor
 		}
 
 		public override void SetDefaults() {
-			item.width = 18;
-			item.height = 18;
-			item.rare = ItemRarityID.White;
-			item.defense = 6;
-			item.value = 4500;
+			Item.width = 18;
+			Item.height = 18;
+			Item.rare = ItemRarityID.White;
+			Item.defense = 6;
+			Item.value = 4500;
 		}
 		
 		public override void UpdateEquip(Player player) {
@@ -29,11 +29,10 @@ namespace TheDepths.Items.Armor
 		
 		public override void AddRecipes() 
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ModContent.ItemType<Items.Placeable.Geode>(), 3);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

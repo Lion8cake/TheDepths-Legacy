@@ -19,23 +19,20 @@ namespace TheDepths.Items.Armor
 			DisplayName.SetDefault("Onyx Robe");
 			Tooltip.SetDefault("20% decreased mana usage"
 				+ "\nIncreases maximum mana by 60");
+			ArmorIDs.Body.Sets.HidesHands[Item.bodySlot] = false;
 		}
 		
 		public override void SetDefaults() {
-			item.width = 18;
-			item.height = 14;
-			item.rare = ItemRarityID.Blue;
-			item.value = 300000;
-			item.defense = 16;
+			Item.width = 18;
+			Item.height = 14;
+			Item.rare = ItemRarityID.Blue;
+			Item.value = 300000;
+			Item.defense = 16;
 		}
 
 		public override void SetMatch(bool male, ref int equipSlot, ref bool robes) {
 			robes = true;
-			equipSlot = mod.GetEquipSlot("OnyxRobe_Legs", EquipType.Legs);
-		}
-
-		public override void DrawHands(ref bool drawHands, ref bool drawArms) {
-			drawHands = true;
+			equipSlot = EquipLoader.GetEquipSlot(Mod, "OnyxRobe_Legs", EquipType.Legs);
 		}
 		
 		public override void UpdateEquip(Player player)
@@ -46,12 +43,11 @@ namespace TheDepths.Items.Armor
 		
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.Robe, 1);
 			recipe.AddIngredient(ModContent.ItemType<Items.Placeable.Onyx>(), 10);
 			recipe.AddTile(86);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

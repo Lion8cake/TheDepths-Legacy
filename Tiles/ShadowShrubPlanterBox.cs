@@ -9,7 +9,7 @@ namespace TheDepths.Tiles
 {
 	public class ShadowShrubPlanterBox : ModTile
 	{
-		public override void SetDefaults() {
+		public override void SetStaticDefaults() {
 			Main.tileLighted[Type] = true;
 			Main.tileFrameImportant[Type] = true;
 			Main.tileSolidTop[Type] = true;
@@ -28,10 +28,10 @@ namespace TheDepths.Tiles
 			TileObjectData.newTile.LavaDeath = true;
 			TileObjectData.addTile(Type);
 			AddMapEntry(new Color(27, 29, 33));
-			dustType = 37;
-			drop = ModContent.ItemType<Items.Placeable.ShadowShrubPlanterBox>();
-			disableSmartCursor = true;
-			adjTiles = new int[] { TileID.PlanterBox };
+			DustType = 37;
+			ItemDrop = ModContent.ItemType<Items.Placeable.ShadowShrubPlanterBox>();
+            TileID.Sets.DisableSmartCursor[Type] = true;
+			AdjTiles = new int[] { TileID.PlanterBox };
 		}
 		
 		public override bool Slope(int i, int j)
