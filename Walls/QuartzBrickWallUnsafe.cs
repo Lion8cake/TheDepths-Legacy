@@ -8,8 +8,8 @@ namespace TheDepths.Walls
 {
 	public class QuartzBrickWallUnsafe : ModWall
 	{
-		public override void SetStaticDefaults() {
-			DustType = ModContent.DustType<QuartzCrystals>();
+		public override void SetDefaults() {
+			dustType = ModContent.DustType<QuartzCrystals>();
 			AddMapEntry(new Color(54, 68, 73));
 		}
 		

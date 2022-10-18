@@ -16,11 +16,11 @@ namespace TheDepths.Items.Accessories
 		}
 
 		public override void SetDefaults() {
-			Item.width = 24;
-			Item.height = 28;
-			Item.value = 500000;
-			Item.rare = ItemRarityID.LightRed;
-			Item.accessory = true;
+			item.width = 24;
+			item.height = 28;
+			item.value = 500000;
+			item.rare = ItemRarityID.LightRed;
+			item.accessory = true;
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual) {
@@ -30,11 +30,12 @@ namespace TheDepths.Items.Accessories
 		
 		public override void AddRecipes()
 		{
-			Recipe recipe = CreateRecipe();
+			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.WaterWalkingBoots, 1);
 			recipe.AddIngredient(ModContent.ItemType<Items.Accessories.CrystalSkull>(), 1);
 			recipe.AddTile(114);
-			recipe.Register();
+			recipe.SetResult(this);
+			recipe.AddRecipe();
 		}
 	}
 }

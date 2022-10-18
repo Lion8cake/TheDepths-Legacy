@@ -14,30 +14,31 @@ namespace TheDepths.Items
 
         public override void SetDefaults()
         {
-            Item.width = 20;
-            Item.height = 26;
-            Item.useStyle = ItemUseStyleID.EatFood;
-            Item.useAnimation = 15;
-            Item.useTime = 15;
-            Item.useTurn = true;
-            Item.UseSound = SoundID.Item3;
-            Item.maxStack = 30;
-            Item.consumable = true;
-            Item.rare = ItemRarityID.Blue;
-            Item.value = 1000;
-            Item.buffType = ModContent.BuffType<Buffs.SilverSphereBuff>();
-            Item.buffTime = 14400;
+            item.width = 20;
+            item.height = 26;
+            item.useStyle = ItemUseStyleID.EatingUsing;
+            item.useAnimation = 15;
+            item.useTime = 15;
+            item.useTurn = true;
+            item.UseSound = SoundID.Item3;
+            item.maxStack = 30;
+            item.consumable = true;
+            item.rare = ItemRarityID.Blue;
+            item.value = 1000;
+            item.buffType = ModContent.BuffType<Buffs.SilverSphereBuff>();
+            item.buffTime = 14400;
         }
 		
 		public override void AddRecipes()
 		{
-			Recipe recipe = CreateRecipe();
+			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.BottledWater, 1);
 			recipe.AddIngredient(ItemID.FlarefinKoi, 1);
 			recipe.AddIngredient(ItemID.Obsidifish, 2);
 			recipe.AddIngredient(ModContent.ItemType<Items.ShadowShrub>(), 1);
 			recipe.AddTile(13);
-			recipe.Register();
+			recipe.SetResult(this);
+			recipe.AddRecipe();
 		}
     }
 }

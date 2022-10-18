@@ -10,7 +10,7 @@ namespace TheDepths.Tiles
 {
 	public class DepthsBanners : ModTile
 	{
-		public override void SetStaticDefaults() {
+		public override void SetDefaults() {
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = true;
 			Main.tileLavaDeath[Type] = true;
@@ -21,7 +21,8 @@ namespace TheDepths.Tiles
 			TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
 			TileObjectData.newTile.StyleWrapLimit = 111;
 			TileObjectData.addTile(Type);
-			DustType = -1;
+			dustType = -1;
+			disableSmartCursor = true;
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Banner");
 			AddMapEntry(new Color(13, 88, 130), name);
@@ -68,13 +69,13 @@ namespace TheDepths.Tiles
 					return;
 					
 			}
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, Mod.Find<ModItem>(item).Type);
+			Item.NewItem(i * 16, j * 16, 16, 48, mod.ItemType(item));
 		}
 
 		public override void NearbyEffects(int i, int j, bool closer) {
 			if (closer) {
 				Player player = Main.LocalPlayer;
-				int style = Main.tile[i, j].TileFrameX / 18;
+				int style = Main.tile[i, j].frameX / 18;
 				string type;
 				switch (style) {
 					case 0:
@@ -95,26 +96,26 @@ namespace TheDepths.Tiles
 					case 5:
 						type = "GoldBat";
 						break;
-					case 6:
-						type = "Ferroslime";
-						break;
-					case 7:
-						type = "ShadowBat";
-						break;
-					case 8:
-						type = "CrystalKing";
-						break;
-					case 9:
-						type = "KingCoal";
-						break;
-					case 10:
-						type = "Achroma";
-						break;
-						default:
-					return;
+				case 6:
+					type = "Ferroslime";
+					break;
+				case 7:
+					type = "ShadowBat";
+					break;
+				case 8:
+					type = "CrystalKing";
+					break;
+				case 9:
+					type = "KingCoal";
+					break;
+				case 10:
+					type = "Achroma";
+					break;
+					default:
+						return;
 				}
-				Main.SceneMetrics.NPCBannerBuff[Mod.Find<ModNPC>(type).Type] = true;
-				Main.SceneMetrics.hasBanner = true;
+				player.NPCBannerBuff[mod.NPCType(type)] = true;
+				player.hasBanner = true;
 			}
 		}
 

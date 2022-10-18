@@ -13,15 +13,15 @@ namespace TheDepths.Items.Armor
 		}
 
 		public override void SetDefaults() {
-			Item.width = 18;
-			Item.height = 18;
-			Item.rare = ItemRarityID.Orange;
-			Item.defense = 8;
-			Item.value = 100000;
+			item.width = 18;
+			item.height = 18;
+			item.rare = ItemRarityID.Orange;
+			item.defense = 8;
+			item.value = 100000;
 		}
 		
 		public override void UpdateEquip(Player player) {
-		player.GetDamage(DamageClass.Magic) += 0.18f;
+		player.magicDamage += 0.18f;
 		}
 	}
 }

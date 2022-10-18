@@ -22,12 +22,12 @@ namespace TheDepths.Items.Accessories
 
 		public override void SetDefaults()
 		{
-			Item.rare = ItemRarityID.LightRed;
-			Item.width = 20;
-			Item.value = 100000;
-			Item.accessory = true;
-			Item.height = 20;
-			Item.defense = 1;
+			item.rare = ItemRarityID.LightRed;
+			item.width = 20;
+			item.value = 100000;
+			item.accessory = true;
+			item.height = 20;
+			item.defense = 1;
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
@@ -38,11 +38,12 @@ namespace TheDepths.Items.Accessories
 		
 		public override void AddRecipes()
 		{
-			Recipe recipe = CreateRecipe();
+			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ModContent.ItemType<Items.Accessories.CrystalSkull>(), 1);
 			recipe.AddIngredient(ItemID.CobaltShield, 1);
 			recipe.AddTile(114);
-			recipe.Register();
+			recipe.SetResult(this);
+			recipe.AddRecipe();
 		}
 	}
 }

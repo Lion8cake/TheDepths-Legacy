@@ -11,17 +11,17 @@ namespace TheDepths.Items.Placeable
 		}
 
 		public override void SetDefaults() {
-			Item.width = 12;
-			Item.height = 12;
-			Item.maxStack = 999;
-			Item.useTurn = true;
-			Item.autoReuse = true;
-			Item.useAnimation = 15;
-			Item.useTime = 10;
-			Item.value = 100;
-			Item.useStyle = ItemUseStyleID.Swing;
-			Item.consumable = true;
-			Item.createTile = ModContent.TileType<Tiles.ShadowShrubPlanterBox>();
+			item.width = 12;
+			item.height = 12;
+			item.maxStack = 999;
+			item.useTurn = true;
+			item.autoReuse = true;
+			item.useAnimation = 15;
+			item.useTime = 10;
+			item.value = 100;
+			item.useStyle = ItemUseStyleID.SwingThrow;
+			item.consumable = true;
+			item.createTile = ModContent.TileType<Tiles.ShadowShrubPlanterBox>();
 		}
 	}
 }

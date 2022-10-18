@@ -10,30 +10,30 @@ namespace TheDepths.Items.Weapons
 	{
 		public override void SetStaticDefaults() {
 		    DisplayName.SetDefault("Blue Sphere");
-			ItemID.Sets.Yoyo[Item.type] = true;
-			ItemID.Sets.GamepadExtraRange[Item.type] = 15;
-			ItemID.Sets.GamepadSmartQuickReach[Item.type] = true;
+			ItemID.Sets.Yoyo[item.type] = true;
+			ItemID.Sets.GamepadExtraRange[item.type] = 15;
+			ItemID.Sets.GamepadSmartQuickReach[item.type] = true;
 		}
 
 		public override void SetDefaults() {
-			Item.useStyle = ItemUseStyleID.Shoot;
-			Item.width = 24;
-			Item.height = 24;
-			Item.useAnimation = 25;
-			Item.useTime = 25;
-			Item.shootSpeed = 16f;
-			Item.knockBack = 2.5f;
-			Item.damage = 50;
-			Item.rare = ItemRarityID.LightRed;
+			item.useStyle = ItemUseStyleID.HoldingOut;
+			item.width = 24;
+			item.height = 24;
+			item.useAnimation = 25;
+			item.useTime = 25;
+			item.shootSpeed = 16f;
+			item.knockBack = 2.5f;
+			item.damage = 50;
+			item.rare = ItemRarityID.LightRed;
 
-			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
-			Item.channel = true;
-			Item.noMelee = true;
-			Item.noUseGraphic = true;
+			item.melee = true;
+			item.channel = true;
+			item.noMelee = true;
+			item.noUseGraphic = true;
 
-			Item.UseSound = SoundID.Item1;
-			Item.value = Item.sellPrice(silver: 400);
-			Item.shoot = ModContent.ProjectileType<BlueSphereYoyo>();
+			item.UseSound = SoundID.Item1;
+			item.value = Item.sellPrice(silver: 400);
+			item.shoot = ModContent.ProjectileType<BlueSphereYoyo>();
 		}
 		
 		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit) {

@@ -6,7 +6,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using Terraria.DataStructures;
 
 namespace TheDepths.Tiles
 {
@@ -20,7 +19,7 @@ namespace TheDepths.Tiles
 	{
 		private const int FrameWidth = 18;
 
-		public override void SetStaticDefaults()
+		public override void SetDefaults()
 		{
 			Main.tileFrameImportant[Type] = true;
 			Main.tileCut[Type] = true;
@@ -41,7 +40,7 @@ namespace TheDepths.Tiles
 			};
 
 			TileObjectData.addTile(Type);
-			DustType = Mod.Find<ModDust>("ShadowShrubDust").Type;
+			dustType = mod.DustType("ShadowShrubDust");
 		}
 
 		public override void SetSpriteEffects(int i, int j, ref SpriteEffects spriteEffects)
@@ -55,9 +54,9 @@ namespace TheDepths.Tiles
 			PlantStage stage = GetStage(i, j);
 
 			if (stage == PlantStage.Grown)
-				Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j).ToWorldCoordinates(), ModContent.ItemType<ShadowShrubSeeds>());
+				Item.NewItem(new Vector2(i, j).ToWorldCoordinates(), ModContent.ItemType<ShadowShrubSeeds>());
 			if (stage == PlantStage.Grown)
-				Item.NewItem(new EntitySource_TileBreak(i, j), new Vector2(i, j).ToWorldCoordinates(), ModContent.ItemType<Items.ShadowShrub>());
+				Item.NewItem(new Vector2(i, j).ToWorldCoordinates(), ModContent.ItemType<Items.ShadowShrub>());
 				
 			return false;
 		}
@@ -68,7 +67,7 @@ namespace TheDepths.Tiles
 			PlantStage stage = GetStage(i, j);
 
 			if (stage != PlantStage.Grown) {
-				tile.TileFrameX += FrameWidth;
+				tile.frameX += FrameWidth;
 
 				if (Main.netMode != NetmodeID.SinglePlayer)
 					NetMessage.SendTileSquare(-1, i, j, 1);
@@ -78,7 +77,7 @@ namespace TheDepths.Tiles
 		private PlantStage GetStage(int i, int j)
 		{
 			Tile tile = Framing.GetTileSafely(i, j);
-			return (PlantStage)(tile.TileFrameX / FrameWidth);
+			return (PlantStage)(tile.frameX / FrameWidth);
 		}
 	}
 }

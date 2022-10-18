@@ -20,11 +20,11 @@ namespace TheDepths.Items.Accessories
 
 		public override void SetDefaults()
 		{
-			Item.rare = ItemRarityID.Orange;
-			Item.width = 10;
-			Item.accessory = true;
-			Item.value = 100000;
-			Item.height = 10;
+			item.rare = ItemRarityID.Orange;
+			item.width = 10;
+			item.accessory = true;
+			item.value = 100000;
+			item.height = 10;
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

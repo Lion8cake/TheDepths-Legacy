@@ -23,18 +23,18 @@ namespace TheDepths.Projectiles.SilverSpherePotion
 
 	public override void SetDefaults()
 	{
-		Projectile.width = 30;
-		Projectile.height = 30;
-		Projectile.aiStyle = -1;
-		Projectile.tileCollide = false;
-		Projectile.ignoreWater = true;
-		Projectile.penetrate = -1;
-		Projectile.timeLeft = 3600;
+		projectile.width = 30;
+		projectile.height = 30;
+		projectile.aiStyle = -1;
+		projectile.tileCollide = false;
+		projectile.ignoreWater = true;
+		projectile.penetrate = -1;
+		projectile.timeLeft = 3600;
 	}
 
 	public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
 	{
-		Player player = Main.player[Projectile.owner];
+		Player player = Main.player[projectile.owner];
 		hitDirection = ((!(target.Center.X < player.Center.X)) ? 1 : (-1));
 	}
 	
@@ -42,11 +42,11 @@ namespace TheDepths.Projectiles.SilverSpherePotion
 	{
 		for (int i = 0; i < 15; i++)
 		{
-			int num = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width * 2, Projectile.height * 2, 11, 0f, 0f, 100, default(Color), 1.2f);
-			int num2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width * 2, Projectile.height * 2, 11, 0f, 0f, 100, default(Color), 1.2f);
+			int num = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width * 2, projectile.height * 2, 11, 0f, 0f, 100, default(Color), 1.2f);
+			int num2 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width * 2, projectile.height * 2, 11, 0f, 0f, 100, default(Color), 1.2f);
 			Main.dust[num2].noGravity = true;
 		}
-		Projectile.ai[1] = 1f;
+		projectile.ai[1] = 1f;
 	}
 
 	public static Vector2 RotateVector(Vector2 origin, Vector2 vecToRot, float rot)
@@ -58,21 +58,21 @@ namespace TheDepths.Projectiles.SilverSpherePotion
 
 	public override void AI()
 	{
-		Player player = Main.player[Projectile.owner];
+		Player player = Main.player[projectile.owner];
 		rot += 0.05f;
-		Projectile.Center = player.Center + RotateVector(default(Vector2), new Vector2(0f, (float)(60 + Projectile.frameCounter)), rot + Projectile.ai[0] * 1.54666674f);
-		Projectile.velocity.X = ((Projectile.position.X > player.position.X) ? 1f : (-1f));
-		if (Projectile.ai[1] > 0f)
+		projectile.Center = player.Center + RotateVector(default(Vector2), new Vector2(0f, (float)(60 + projectile.frameCounter)), rot + projectile.ai[0] * 1.54666674f);
+		projectile.velocity.X = ((projectile.position.X > player.position.X) ? 1f : (-1f));
+		if (projectile.ai[1] > 0f)
 		{
 			fadeOut = 0.15f;
-			Projectile.friendly = false;
+			projectile.friendly = false;
 			timer++;
 			if (timer > 60)
 			{
 			for (int i = 0; i < 15; i++)
 				{
-					int num = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height * 2, 11, 0f, 0f, 100, default(Color), 1.2f);
-					int num2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height * 2, 11, 0f, 0f, 100, default(Color), 1.2f);
+					int num = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height * 2, 11, 0f, 0f, 100, default(Color), 1.2f);
+					int num2 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height * 2, 11, 0f, 0f, 100, default(Color), 1.2f);
 					Main.dust[num2].noGravity = true;
 					Dust obj = Main.dust[num2];
 					obj.velocity *= 0.75f;
@@ -85,14 +85,14 @@ namespace TheDepths.Projectiles.SilverSpherePotion
 					Main.dust[num2].velocity.X = (0f - (float)num3) * 0.075f;
 					Main.dust[num2].velocity.Y = (0f - (float)num4) * 0.075f;
 				}
-				Projectile.ai[1] = 0f;
+				projectile.ai[1] = 0f;
 				timer = 0;
 			}
 		}
 		else
 		{
 			fadeOut = 0.75f;
-			Projectile.friendly = true;
+			projectile.friendly = true;
 		}
 	}
 }

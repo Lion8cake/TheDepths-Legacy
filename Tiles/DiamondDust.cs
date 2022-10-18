@@ -15,28 +15,28 @@ namespace TheDepths.Tiles
 {
 	public class DiamondDust : ModTile
 	{
-		public override void SetStaticDefaults() {
+		public override void SetDefaults() {
 			Main.tileSolid[Type] = false;
 			Main.tileMergeDirt[Type] = false;
 			Main.tileBlockLight[Type] = true;
 			AddMapEntry(new Color(223, 230, 238));
-			DustType = Mod.Find<ModDust>("DiamondCrystals").Type;
-			ItemDrop = ModContent.ItemType<Items.Placeable.DiamondDust>();
+			dustType = mod.DustType("DiamondCrystals");
+			drop = ModContent.ItemType<Items.Placeable.DiamondDust>();
 			TileObjectData.newTile.Width = 1;
             TileObjectData.newTile.Height = 1;
             TileObjectData.newTile.Origin = new Point16(0, 0);
             TileObjectData.newTile.CoordinateHeights = new int[1] { 16 };
             TileObjectData.newTile.CoordinateWidth = 16;
             TileObjectData.newTile.CoordinatePadding = 2;
-            //TileObjectData.newTile.HookCheckIfCanPlace = new PlacementHook(CanPlaceAlter, -1, 0, processedCoordinates: true);
+            TileObjectData.newTile.HookCheck = new PlacementHook(CanPlaceAlter, -1, 0, processedCoordinates: true);
             TileObjectData.newTile.UsesCustomCanPlace = true;
-            //TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(AfterPlacement, -1, 0, processedCoordinates: false);
+            TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(AfterPlacement, -1, 0, processedCoordinates: false);
             TileObjectData.addTile(Type);
 		}
 		
 		public override bool CanPlace(int i, int j)
         {
-            return (Main.tile[i, j - 1].HasTile || Main.tile[i, j + 1].HasTile || Main.tile[i, j].WallType != 0 && !Main.tile[i, j].HasTile);
+            return (Main.tile[i, j - 1].active() || Main.tile[i, j + 1].active() || Main.tile[i, j].wall != 0 && !Main.tile[i, j].active());
         }
 		
         public int CanPlaceAlter(int i, int j, int type, int style, int direction)
@@ -48,7 +48,7 @@ namespace TheDepths.Tiles
         {
             if (Main.netMode == NetmodeID.MultiplayerClient)
             {
-                NetMessage.SendTileSquare(Main.myPlayer, i, j, 1, 1);
+                NetMessage.SendTileRange(Main.myPlayer, i, j, 1, 1);
             }
             return 1;
         }
@@ -61,10 +61,10 @@ namespace TheDepths.Tiles
 			Tile below = Main.tile[i, j + 1];
 			bool canFall = true;
 
-			if (below == null || below.HasTile)
+			if (below == null || below.active())
 				canFall = false;
 
-			if (above.HasTile && (TileID.Sets.BasicChest[above.TileType] || TileID.Sets.BasicChestFake[above.TileType] || above.TileType == TileID.PalmTree || above.TileType == TileID.Cactus || TileID.Sets.BasicDresser[above.TileType]))
+			if (above.active() && (TileID.Sets.BasicChest[above.type] || TileID.Sets.BasicChestFake[above.type] || above.type == TileID.PalmTree || TileLoader.IsDresser(above.type)))
 				canFall = false;
 
 			if (canFall) {
@@ -74,11 +74,12 @@ namespace TheDepths.Tiles
 
 				if (Main.netMode == NetmodeID.SinglePlayer) {
 					Main.tile[i, j].ClearTile();
-					int proj = Projectile.NewProjectile(new EntitySource_Misc(""), positionX, positionY, 0f, 0.41f, projectileType, 10, 0f, Main.myPlayer);
+					int proj = Projectile.NewProjectile(positionX, positionY, 0f, 0.41f, projectileType, 10, 0f, Main.myPlayer);
 					Main.projectile[proj].ai[0] = 1f;
 					WorldGen.SquareTileFrame(i, j);
 				}
 				else if (Main.netMode == NetmodeID.Server) {
+					Main.tile[i, j].active(false);
 					bool spawnProj = true;
 
 					for (int k = 0; k < 1000; k++) {
@@ -91,7 +92,7 @@ namespace TheDepths.Tiles
 					}
 
 					if (spawnProj) {
-						int proj = Projectile.NewProjectile(new EntitySource_Misc(""),positionX, positionY, 0f, 2.5f, projectileType, 10, 0f, Main.myPlayer);
+						int proj = Projectile.NewProjectile(positionX, positionY, 0f, 2.5f, projectileType, 10, 0f, Main.myPlayer);
 						Main.projectile[proj].velocity.Y = 0.5f;
 						Main.projectile[proj].position.Y += 2f;
 						Main.projectile[proj].netUpdate = true;

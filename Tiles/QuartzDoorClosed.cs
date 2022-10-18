@@ -10,7 +10,7 @@ namespace TheDepths.Tiles
 {
 	public class QuartzDoorClosed : ModTile
 	{
-		public override void SetStaticDefaults()
+		public override void SetDefaults()
 		{
 			Main.tileFrameImportant[Type] = true;
 			Main.tileBlockLight[Type] = true;
@@ -39,16 +39,16 @@ namespace TheDepths.Tiles
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Door");
-            TileID.Sets.DisableSmartCursor[Type] = true;
-			AdjTiles = new int[]{ TileID.ClosedDoor };
-			OpenDoorID = Mod.Find<ModTile>("QuartzDoorOpen").Type;
+			disableSmartCursor = true;
+			adjTiles = new int[]{ TileID.ClosedDoor };
+			openDoorID = mod.TileType("QuartzDoorOpen");
 			AddMapEntry(new Color(255, 255, 255), name);
-			DustType = Mod.Find<ModDust>("QuartzCrystals").Type;
+			dustType = mod.DustType("QuartzCrystals");
 		}
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, Mod.Find<ModItem>("QuartzDoor").Type);
+			Item.NewItem(i * 16, j * 16, 16, 48, mod.ItemType("QuartzDoor"));
 		}
 	}
 }

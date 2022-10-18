@@ -1,4 +1,3 @@
-using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 
@@ -10,22 +9,23 @@ namespace TheDepths.Items.Placeable
 		}
 
 		public override void SetDefaults() {
-			Item.width = 12;
-			Item.height = 12;
-			Item.maxStack = 999;
-			Item.useTurn = true;
-			Item.autoReuse = true;
-			Item.useAnimation = 15;
-			Item.useTime = 7;
-			Item.useStyle = ItemUseStyleID.Swing;
-			Item.consumable = true;
-			Item.createWall = ModContent.WallType<Walls.ArqueriteBrickWall>();
+			item.width = 12;
+			item.height = 12;
+			item.maxStack = 999;
+			item.useTurn = true;
+			item.autoReuse = true;
+			item.useAnimation = 15;
+			item.useTime = 7;
+			item.useStyle = ItemUseStyleID.SwingThrow;
+			item.consumable = true;
+			item.createWall = ModContent.WallType<Walls.ArqueriteBrickWall>();
 		}
 
 		public override void AddRecipes() {
-			Recipe recipe = CreateRecipe(4);
+			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ModContent.ItemType<ArqueriteBricks>());
-			recipe.Register();
+			recipe.SetResult(this, 4);
+			recipe.AddRecipe();
 		}
 	}
 }

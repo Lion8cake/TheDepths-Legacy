@@ -15,23 +15,24 @@ namespace TheDepths.Items.Armor
 		}
 
 		public override void SetDefaults() {
-			Item.width = 18;
-			Item.height = 18;
-			Item.rare = ItemRarityID.Orange;
-			Item.defense = 8;
-			Item.value = 30000;
+			item.width = 18;
+			item.height = 18;
+			item.rare = ItemRarityID.Orange;
+			item.defense = 8;
+			item.value = 30000;
 		}
 		
 		public override void UpdateEquip(Player player) {
-		player.GetDamage(DamageClass.Melee) += 0.08f;
+		player.meleeDamage += 0.08f;
 		}
 
 		public override void AddRecipes() 
 		{
-			Recipe recipe = CreateRecipe();
+			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ModContent.ItemType<Items.Placeable.ArqueriteBar>(), 20);
 			recipe.AddTile(TileID.Anvils);
-			recipe.Register();
+			recipe.SetResult(this);
+			recipe.AddRecipe();
 		}
 	}
 }

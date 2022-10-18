@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "8ymxXpac907Pjx7QR2UCq/qFtR7nM91xTgw8jnEcYBipELfmPOBDc/mNF+EldWEHWOeA4Msd0oNUxXmLEhhQNA==",
+  "dgSpecHash": "Tw4L2ph50FEJPzcX6dOh579s4KOoiiTH2fCbNtpmZiNZF2KRrdGaUlCvemPMpzaGZhs7gZdYPC/08T6FG0bP6Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Lion8\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TheDepths\\TheDepths.csproj",
+  "projectFilePath": "C:\\Users\\palma\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\TheDepths\\TheDepths.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Lion8\\.nuget\\packages\\tmodloader.codeassist\\0.1.5\\tmodloader.codeassist.0.1.5.nupkg.sha512"
+    "C:\\Users\\palma\\.nuget\\packages\\tmodloader.codeassist\\0.1.3\\tmodloader.codeassist.0.1.3.nupkg.sha512"
   ],
   "logs": []
 }

@@ -13,22 +13,22 @@ namespace TheDepths.Items.Weapons
 		}
 
 		public override void SetDefaults() {
-			Item.damage = 38;
-			Item.DamageType = DamageClass.Magic;
-			Item.mana = 10;
-			Item.width = 40;
-			Item.height = 40;
-			Item.useTime = 10;
-			Item.useAnimation = 10;
-			Item.useStyle = 1;
-			Item.noMelee = true;
-			Item.knockBack = 5;
-			Item.value = 10000;
-			Item.rare = ItemRarityID.LightRed;
-			Item.UseSound = SoundID.Item21;
-			Item.autoReuse = false;
-			Item.shoot = ModContent.ProjectileType<ShadowBall>();
-			Item.shootSpeed = 7.5f;
+			item.damage = 38;
+			item.magic = true;
+			item.mana = 10;
+			item.width = 40;
+			item.height = 40;
+			item.useTime = 10;
+			item.useAnimation = 10;
+			item.useStyle = 1;
+			item.noMelee = true;
+			item.knockBack = 5;
+			item.value = 10000;
+			item.rare = ItemRarityID.LightRed;
+			item.UseSound = SoundID.Item21;
+			item.autoReuse = false;
+			item.shoot = ModContent.ProjectileType<ShadowBall>();
+			item.shootSpeed = 7.5f;
 		}
 	}
 }

@@ -8,13 +8,12 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using Terraria.ObjectData;
-using Terraria.DataStructures;
 
 namespace TheDepths.Tiles
 {
     public class PlacedGems : ModTile
     {
-        public override void SetStaticDefaults()
+        public override void SetDefaults()
         {
             TileObjectData.newTile.Width = 1;
             TileObjectData.newTile.Height = 1;
@@ -32,24 +31,24 @@ namespace TheDepths.Tiles
 
         public override ushort GetMapOption(int i, int j)
         {
-            return (ushort)(Main.tile[i, j].TileFrameX / 18);
+            return (ushort)(Main.tile[i, j].frameX / 18);
         }
 
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
             int toDrop = 0;
-            switch (Main.tile[i, j].TileFrameX / 18)
+            switch (Main.tile[i, j].frameX / 18)
             {
                 case 0:
                     toDrop = ModContent.ItemType<Items.Placeable.Geode>();
-					DustType = Mod.Find<ModDust>("GeodeDust").Type;
+					dustType = mod.DustType("GeodeDust");
                     break;
                 case 1:
                     toDrop = ModContent.ItemType<Items.Placeable.Onyx>();
-					DustType = Mod.Find<ModDust>("BlackGemsparkDust").Type;
+					dustType = mod.DustType("BlackGemsparkDust");
                     break;
             }
-            if (toDrop > 0) Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 16, toDrop);
+            if (toDrop > 0) Item.NewItem(i * 16, j * 16, 16, 16, toDrop);
         }
 
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
@@ -63,34 +62,34 @@ namespace TheDepths.Tiles
             var bottomType = -1;
             var leftType = -1;
             var rightType = -1;
-            if (topTile.HasTile && !topTile.BottomSlope)
-                bottomType = topTile.TileType;
-            if (bottomTile.HasTile && !bottomTile.IsHalfBlock && !bottomTile.TopSlope)
-                topType = bottomTile.TileType;
-            if (leftTile.HasTile)
-                leftType = leftTile.TileType;
-            if (rightTile.HasTile)
-                rightType = rightTile.TileType;
+            if (topTile.active() && !topTile.bottomSlope())
+                bottomType = topTile.type;
+            if (bottomTile.active() && !bottomTile.halfBrick() && !bottomTile.topSlope())
+                topType = bottomTile.type;
+            if (leftTile.active())
+                leftType = leftTile.type;
+            if (rightTile.active())
+                rightType = rightTile.type;
             var variation = WorldGen.genRand.Next(3) * 18;
             if (topType >= 0 && Main.tileSolid[topType] && !Main.tileSolidTop[topType])
             {
-                if (tile.TileFrameY < 0 || tile.TileFrameY > 36)
-                    tile.TileFrameY = (short)variation;
+                if (tile.frameY < 0 || tile.frameY > 36)
+                    tile.frameY = (short)variation;
             }
             else if (leftType >= 0 && Main.tileSolid[leftType] && !Main.tileSolidTop[leftType])
             {
-                if (tile.TileFrameY < 108 || tile.TileFrameY > 54)
-                    tile.TileFrameY = (short)(108 + variation);
+                if (tile.frameY < 108 || tile.frameY > 54)
+                    tile.frameY = (short)(108 + variation);
             }
             else if (rightType >= 0 && Main.tileSolid[rightType] && !Main.tileSolidTop[rightType])
             {
-                if (tile.TileFrameY < 162 || tile.TileFrameY > 198)
-                    tile.TileFrameY = (short)(162 + variation);
+                if (tile.frameY < 162 || tile.frameY > 198)
+                    tile.frameY = (short)(162 + variation);
             }
             else if (bottomType >= 0 && Main.tileSolid[bottomType] && !Main.tileSolidTop[bottomType])
             {
-                if (tile.TileFrameY < 54 || tile.TileFrameY > 90)
-                    tile.TileFrameY = (short)(54 + variation);
+                if (tile.frameY < 54 || tile.frameY > 90)
+                    tile.frameY = (short)(54 + variation);
             }
             else
                 WorldGen.KillTile(i, j);
@@ -102,9 +101,9 @@ namespace TheDepths.Tiles
             return WorldGen.SolidTile(i - 1, j) || WorldGen.SolidTile(i + 1, j) || WorldGen.SolidTile(i, j - 1) || WorldGen.SolidTile(i, j + 1);
         }
 
-        public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short tileFrameY)
+        public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height)
         {
-            if (Main.tile[i, j].TileFrameY / 18 < 3)
+            if (Main.tile[i, j].frameY / 18 < 3)
                 offsetY = 2;
         }
     }

@@ -1,8 +1,5 @@
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
-using Terraria.DataStructures;
-using Terraria.GameContent.ObjectInteractions;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
@@ -11,7 +8,7 @@ namespace TheDepths.Tiles
 {
     public class GemlockTile : ModTile
     {
-        public override void SetStaticDefaults()
+        public override void SetDefaults()
         {
             Main.tileFrameImportant[Type] = true;
             TileID.Sets.FramesOnKillWall[Type] = true;
@@ -21,13 +18,14 @@ namespace TheDepths.Tiles
             TileObjectData.newTile.StyleWrapLimit = 36;
 			TileID.Sets.FramesOnKillWall[Type] = true;
             TileObjectData.addTile(Type);
-            TileID.Sets.DisableSmartCursor[Type] = true;
-            DustType = 7;
+			disableSmartCursor = true;
+            dustType = 7;
+            disableSmartCursor = true;
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("");
             AddMapEntry(new Color(120, 120, 120), name);
         }
-        public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings)
+        public override bool HasSmartInteract()
         {
             return true;
         }
@@ -35,8 +33,8 @@ namespace TheDepths.Tiles
         {
             Player player = Main.LocalPlayer;
             player.noThrow = 2;
-            player.cursorItemIconEnabled = true;
-            player.cursorItemIconID = itemType;
+            player.showItemIcon = true;
+            player.showItemIcon2 = itemType;
         }
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
@@ -45,15 +43,15 @@ namespace TheDepths.Tiles
             switch (frameX / 54)
             {
                 case 0:
-                    gemLock = Mod.Find<ModItem>("OnyxGemLock").Type;
+                    gemLock = mod.ItemType("OnyxGemLock");
                     break;
             }
             if (gemLock > 0)
             {
-                Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 54, 32, gemLock);
+                Item.NewItem(i * 16, j * 16, 54, 32, gemLock);
                 if (frameY >= 54)
 				{
-                    Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 54, 32, gem);
+                    Item.NewItem(i * 16, j * 16, 54, 32, gem);
 				}
             }
         }
@@ -61,21 +59,21 @@ namespace TheDepths.Tiles
         public override void MouseOver(int i, int j)
         {
             Player player = Main.LocalPlayer;
-            bool IsOn = Main.tile[i, j].TileFrameY / 54 == 1;
-            int gem = SelectGem(Main.tile[i, j].TileFrameX);
+            bool IsOn = Main.tile[i, j].frameY / 54 == 1;
+            int gem = SelectGem(Main.tile[i, j].frameX);
             if (gem > 0 && (IsOn || player.HasItem(gem)))
             {
                 player.noThrow = 2;
-                player.cursorItemIconEnabled = true;
-                player.cursorItemIconID = gem;
+                player.showItemIcon = true;
+                player.showItemIcon2 = gem;
             }
         }
 
-        public override bool RightClick(int i, int j)
+        public override bool NewRightClick(int i, int j)
         {
             Player player = Main.LocalPlayer;
-            bool IsOn = Main.tile[i, j].TileFrameY / 54 == 1;
-            int gem = SelectGem(Main.tile[i, j].TileFrameX);
+            bool IsOn = Main.tile[i, j].frameY / 54 == 1;
+            int gem = SelectGem(Main.tile[i, j].frameX);
             if (!IsOn && player.selectedItem != 58 && gem > 0 && player.ConsumeItem(gem) || IsOn)
             {
                 player.GamepadEnableGrappleCooldown();
@@ -83,7 +81,7 @@ namespace TheDepths.Tiles
                     Toggle(i, j, !IsOn);
                 else
                 {
-                    ModPacket packet = Mod.GetPacket(255);
+                    ModPacket packet = mod.GetPacket(255);
                     packet.Write((byte)0);
                     packet.Write((short)i);
                     packet.Write((short)j);
@@ -98,29 +96,29 @@ namespace TheDepths.Tiles
         {
             Tile tile = Framing.GetTileSafely(i, j);
             Mod mod = ModLoader.GetMod("TheDepths");
-            if (!tile.HasTile || tile.TileType != mod.Find<ModTile>("GemlockTile").Type)
+            if (!tile.active() || tile.type != mod.TileType("GemlockTile"))
                 return;
 
-            bool IsOn = tile.TileFrameY / 54 == 1;
+            bool IsOn = tile.frameY / 54 == 1;
             if (IsOn == turnOn)
                 return;
             
-            int left = i - Main.tile[i, j].TileFrameX % 54 / 18;
-            int top = j - Main.tile[i, j].TileFrameY % 54 / 18;
+            int left = i - Main.tile[i, j].frameX % 54 / 18;
+            int top = j - Main.tile[i, j].frameY % 54 / 18;
 
             for (int k = left; k < left + 3; k++)
             {
                 for (int l = top; l < top + 3; l++)
                 {
-                    Main.tile[k, l].TileFrameY = (short)((Main.tile[k, l].TileFrameY + 54) % 108);
+                    Main.tile[k, l].frameY = (short)((Main.tile[k, l].frameY + 54) % 108);
                 }
             }
             
             if (!turnOn)
             {
-                int gem = SelectGem(Main.tile[i, j].TileFrameX);
+                int gem = SelectGem(Main.tile[i, j].frameX);
                 if (gem > 0)
-                    Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, gem);
+                    Item.NewItem(i * 16, j * 16, 32, 32, gem);
             }
 
             WorldGen.SquareTileFrame(i, j);
@@ -138,7 +136,7 @@ namespace TheDepths.Tiles
 
         public static void TripWire(int i, int j)
         {
-            SoundEngine.PlaySound(SoundID.Mech, new Vector2(i * 16 + 16, j * 16 + 16));
+            Main.PlaySound(SoundID.Mech, i * 16 + 16, j * 16 + 16, 0);
             Wiring.TripWire(i, j, 3, 3);
         }
         
@@ -149,7 +147,7 @@ namespace TheDepths.Tiles
 			switch (frameX / 54)
 			{
 				case 0:
-					gem = mod.Find<ModItem>("LargeOnyx").Type;
+					gem = mod.ItemType("LargeOnyx");
 					break;
 			}
 			return gem;

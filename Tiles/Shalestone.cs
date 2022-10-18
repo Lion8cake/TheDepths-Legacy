@@ -8,7 +8,7 @@ namespace TheDepths.Tiles
 {
 	public class Shalestone : ModTile
 	{
-		public override void SetStaticDefaults()
+		public override void SetDefaults()
 		{
 			Main.tileMergeDirt[Type] = true;
 			Main.tileSolid[Type] = true;
@@ -16,22 +16,23 @@ namespace TheDepths.Tiles
 
 			ModTranslation name = CreateMapEntryName();
 			AddMapEntry(new Color(27, 29, 33));
-			Main.tileMerge[Type][Mod.Find<ModTile>("ArqueriteOre").Type] = true;
-			Main.tileMerge[Type][Mod.Find<ModTile>("Quartz").Type] = true;
-			Main.tileMerge[Type][Mod.Find<ModTile>("ShaleBlock").Type] = true;
-			Main.tileMerge[Type][Mod.Find<ModTile>("ShalestoneAmethyst").Type] = true;
-			Main.tileMerge[Type][Mod.Find<ModTile>("ShalestoneDiamond").Type] = true;
-			Main.tileMerge[Type][Mod.Find<ModTile>("ShalestoneEmerald").Type] = true;
-			Main.tileMerge[Type][Mod.Find<ModTile>("ShalestoneRuby").Type] = true;
-			Main.tileMerge[Type][Mod.Find<ModTile>("ShalestoneSapphire").Type] = true;
-			Main.tileMerge[Type][Mod.Find<ModTile>("ShalestoneTopaz").Type] = true;
-			Main.tileMerge[Type][Mod.Find<ModTile>("OnyxShalestone").Type] = true;
-			DustType = Mod.Find<ModDust>("ShaleDust").Type;
+			Main.tileMerge[Type][mod.TileType("ArqueriteOre")] = true;
+			Main.tileMerge[Type][mod.TileType("Quartz")] = true;
+			Main.tileMerge[Type][mod.TileType("ShaleBlock")] = true;
+			Main.tileMerge[Type][mod.TileType("ShalestoneAmethyst")] = true;
+			Main.tileMerge[Type][mod.TileType("ShalestoneDiamond")] = true;
+			Main.tileMerge[Type][mod.TileType("ShalestoneEmerald")] = true;
+			Main.tileMerge[Type][mod.TileType("ShalestoneRuby")] = true;
+			Main.tileMerge[Type][mod.TileType("ShalestoneSapphire")] = true;
+			Main.tileMerge[Type][mod.TileType("ShalestoneTopaz")] = true;
+			Main.tileMerge[Type][mod.TileType("OnyxShalestone")] = true;
+			dustType = mod.DustType("ShaleDust");
 
-			ItemDrop = ModContent.ItemType<Items.Placeable.Shalestone>();
-			HitSound = SoundID.Tink;
-			MineResist = 2f;
-			MinPick = 65;
+			drop = ModContent.ItemType<Items.Placeable.Shalestone>();
+			soundType = SoundID.Tink;
+			soundStyle = 1;
+			mineResist = 2f;
+			minPick = 65;
 		}
 	}
 }

@@ -1,59 +1,42 @@
+using TheDepths.Dusts;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using Terraria;
-using Terraria.GameContent;
 using Terraria.ModLoader;
 
 namespace TheDepths.Tiles.Trees
 {
-    public class PetrifiedTree : ModTree
-    {
-        public override TreePaintingSettings TreeShaderSettings => new TreePaintingSettings
-        {
-            UseSpecialGroups = true,
-            SpecialGroupMinimalHueValue = 11f / 72f,
-            SpecialGroupMaximumHueValue = 0.25f,
-            SpecialGroupMinimumSaturationValue = 0.88f,
-            SpecialGroupMaximumSaturationValue = 1f
-        };
+	public class PetrifiedTree : ModTree
+	{
+		private Mod mod => ModLoader.GetMod("TheDepths");
 
-        public override void SetStaticDefaults()
-        {
-            GrowsOnTileId = new int[1] { ModContent.TileType<ShaleBlock>() };
-        }
+		public override Texture2D GetTopTextures(int i, int j, ref int frame, ref int frameWidth, ref int frameHeight, ref int xOffsetLeft, ref int yOffset)
+	{
+		frame = (i + j * j) % 3;
+		return ModContent.GetTexture("TheDepths/Tiles/Trees/PetrifiedTree_Tops");
+	}
 
-        public override Asset<Texture2D> GetTexture()
-        {
-            return ModContent.Request<Texture2D>("TheDepths/Tiles/Trees/PetrifiedTree");
-        }
+	public override Texture2D GetBranchTextures(int i, int j, int trunkOffset, ref int frame)
+	{
+		return ModContent.GetTexture("TheDepths/Tiles/Trees/PetrifiedTree_Branches");
+	}
 
-        public override int SaplingGrowthType(ref int style) {
-			style = 0;
-			return ModContent.TileType<Trees.PetrifiedSapling>();
-		}
+	public override Texture2D GetTexture()
+	{
+		return ModContent.GetTexture("TheDepths/Tiles/Trees/PetrifiedTree");
+	}
 
-        public override Asset<Texture2D> GetBranchTextures()
-        {
-            return ModContent.Request<Texture2D>("TheDepths/Tiles/Trees/PetrifiedTree_Branches");
-        }
+	public override int DropWood()
+	{
+		return ModContent.ItemType<Items.Placeable.PetrifiedWood>();
+	}
 
-        public override Asset<Texture2D> GetTopTextures()
-        {
-            return ModContent.Request<Texture2D>("TheDepths/Tiles/Trees/PetrifiedTree_Tops");
-        }
+	public override int CreateDust()
+	{
+		return ModContent.DustType<PetrifiedWoodDust>();
+	}
 
-        public override int DropWood()
-        {
-            return ModContent.ItemType<Items.Placeable.PetrifiedWood>();
-        }
-
-        public override void SetTreeFoliageSettings(Tile tile, ref int xoffset, ref int treeFrame, ref int floorY, ref int topTextureFrameWidth, ref int topTextureFrameHeight)
-        {
-        }
-
-        public override int TreeLeaf()
-        {
-            return ModContent.GoreType<PetrifiedTreeLeaf>();
-        }
-    }
-}
+	public override int GrowthFXGore()
+	{
+		return -1;
+	}
+	}
+} 
