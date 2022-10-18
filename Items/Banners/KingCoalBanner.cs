@@ -8,19 +8,19 @@ namespace TheDepths.Items.Banners
 	public class KingCoalBanner : ModItem
 	{
 		public override void SetDefaults() {
-			Item.width = 10;
-			Item.height = 24;
-			Item.maxStack = 99;
-			Item.useTurn = true;
-			Item.autoReuse = true;
-			Item.useAnimation = 15;
-			Item.useTime = 10;
-			Item.useStyle = ItemUseStyleID.Swing;
-			Item.consumable = true;
-			Item.rare = ItemRarityID.Blue;
-			Item.value = Item.buyPrice(0, 0, 10, 0);
-			Item.createTile = ModContent.TileType<DepthsBanners>();
-			Item.placeStyle = 9;
+			item.width = 10;
+			item.height = 24;
+			item.maxStack = 99;
+			item.useTurn = true;
+			item.autoReuse = true;
+			item.useAnimation = 15;
+			item.useTime = 10;
+			item.useStyle = ItemUseStyleID.SwingThrow;
+			item.consumable = true;
+			item.rare = ItemRarityID.Blue;
+			item.value = Item.buyPrice(0, 0, 10, 0);
+			item.createTile = ModContent.TileType<DepthsBanners>();
+			item.placeStyle = 9;
 		}
 	}
 }

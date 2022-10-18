@@ -18,19 +18,19 @@ namespace TheDepths.Projectiles.Nohitweapon
                     dustMax = 40;
                 for (int j = 0; j < dustMax; j++)
                 {
-                    Vector2 spawnPos = Projectile.Center + Main.rand.NextVector2CircularEdge(60, 60);
+                    Vector2 spawnPos = projectile.Center + Main.rand.NextVector2CircularEdge(60, 60);
                     if (Main.npc[i].Distance(spawnPos) > 1500)
                         continue;
                     Dust dust = Main.dust[Dust.NewDust(spawnPos, 0, 0, 88, 0, 0, 100, Color.White, 1f)];
-                    dust.velocity = Projectile.velocity;
+                    dust.velocity = projectile.velocity;
                     if (Main.rand.Next(3) == 0)
                     {
-                        dust.velocity += Vector2.Normalize(Projectile.Center - dust.position) * Main.rand.NextFloat(5f) * 1f;
+                        dust.velocity += Vector2.Normalize(projectile.Center - dust.position) * Main.rand.NextFloat(5f) * 1f;
                         dust.position += dust.velocity * 5f;
                     }
                     dust.noGravity = true;
                 }
-                if (Main.npc[i].Distance(Projectile.Center) < 60f)
+                if (Main.npc[i].Distance(projectile.Center) < 60f)
                 {
                     Main.npc[i].AddBuff(ModContent.BuffType<FreezingWater>(), 150, false);
                 }

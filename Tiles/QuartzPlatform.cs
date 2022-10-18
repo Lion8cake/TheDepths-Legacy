@@ -9,7 +9,7 @@ namespace TheDepths.Tiles
 {
 	public class QuartzPlatform : ModTile
 	{
-		public override void SetStaticDefaults() {
+		public override void SetDefaults() {
 			Main.tileLighted[Type] = true;
 			Main.tileFrameImportant[Type] = true;
 			Main.tileSolidTop[Type] = true;
@@ -29,10 +29,10 @@ namespace TheDepths.Tiles
 			TileObjectData.addTile(Type);
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
 			AddMapEntry(new Color(255, 255, 255));
-			DustType = Mod.Find<ModDust>("QuartzCrystals").Type;
-			ItemDrop = ModContent.ItemType<Items.Placeable.QuartzPlatform>();
-            TileID.Sets.DisableSmartCursor[Type] = true;
-			AdjTiles = new int[] { TileID.Platforms };
+			dustType = mod.DustType("QuartzCrystals");
+			drop = ModContent.ItemType<Items.Placeable.QuartzPlatform>();
+			disableSmartCursor = true;
+			adjTiles = new int[] { TileID.Platforms };
 		}
 
 		public override void PostSetDefaults() {

@@ -7,17 +7,17 @@ namespace TheDepths.Projectiles.Nohitweapon
     {
         public override void SetStaticDefaults()
         {
-            Main.projFrames[Projectile.type] = 4;
+            Main.projFrames[projectile.type] = 4;
         }
 
         public override void SetDefaults()
         {
-            Projectile.width = 62;
-            Projectile.height = 12;
-            Projectile.friendly = true;
-            Projectile.hostile = false;
-            Projectile.timeLeft = 400;
-            Projectile.penetrate = -1;
+            projectile.width = 62;
+            projectile.height = 12;
+            projectile.friendly = true;
+            projectile.hostile = false;
+            projectile.timeLeft = 400;
+            projectile.penetrate = -1;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -32,12 +32,12 @@ namespace TheDepths.Projectiles.Nohitweapon
 
         public override void AI()
         {
-            if (++Projectile.frameCounter >= 4)
+            if (++projectile.frameCounter >= 4)
             {
-                Projectile.frameCounter = 0;
-                if (++Projectile.frame >= 4)
+                projectile.frameCounter = 0;
+                if (++projectile.frame >= 4)
                 {
-                    Projectile.frame = 0;
+                    projectile.frame = 0;
                 }
             }
         }

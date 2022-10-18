@@ -4,17 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using TheDepths.Items.Banners;
-using Terraria.DataStructures;
-using Terraria.GameContent.ItemDropRules;
-using TheDepths.Items.Armor;
-using TheDepths.Items.Placeable;
-using AltLibrary.Common.Systems;
 
 namespace TheDepths.NPCs
 {
@@ -26,106 +20,105 @@ namespace TheDepths.NPCs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("King Coal");
-            Main.npcFrameCount[NPC.type] = 3;
+            Main.npcFrameCount[npc.type] = 3;
         }
 
         public override void SetDefaults()
         {
-            NPC.width = 60;
-            NPC.height = 74;
-            NPC.damage = 40;
-            NPC.defense = 25;
-            NPC.lifeMax = 600;
-            NPC.HitSound = SoundID.NPCHit1;
-            NPC.DeathSound = SoundID.NPCDeath1;
-			NPC.lavaImmune = true;
-            NPC.value = 1200f;
-            NPC.knockBackResist = 0.5f;
-            NPC.aiStyle = -1;
-            Banner = NPC.type;
-            BannerItem = ModContent.ItemType<KingCoalBanner>();
+            npc.width = 60;
+            npc.height = 74;
+            npc.damage = 40;
+            npc.defense = 25;
+            npc.lifeMax = 600;
+            npc.HitSound = SoundID.NPCHit1;
+            npc.DeathSound = SoundID.NPCDeath1;
+            npc.value = 1200f;
+            npc.knockBackResist = 0.5f;
+            npc.aiStyle = -1;
+            banner = npc.type;
+            bannerItem = ModContent.ItemType<KingCoalBanner>();
         }
 
         public override void FindFrame(int frameHeight)
         {
-            if (NPC.velocity.Y > 0f)
+            if (npc.velocity.Y > 0f)
             {
-                NPC.frame.Y = 2 * frameHeight;
+                npc.frame.Y = 2 * frameHeight;
             }
             else if (attacking)
             {
-                NPC.frame.Y = frameHeight;
+                npc.frame.Y = frameHeight;
             }
             else
             {
-                NPC.frame.Y = 0;
+                npc.frame.Y = 0;
             }
         }
 
         public override void AI()
         {
-            Lighting.AddLight(NPC.position, 0.1f, 0.1f, 0.3f);
-            NPC.TargetClosest();
-            Player player = Main.player[NPC.target];
-            Vector2 val = Main.player[NPC.target].Center + new Vector2(NPC.Center.X, NPC.Center.Y);
-            Vector2 val2 = NPC.Center + new Vector2(NPC.Center.X, NPC.Center.Y);
-            NPC.netUpdate = true;
-            if (player.position.X > NPC.position.X)
+            Lighting.AddLight(npc.position, 0.1f, 0.1f, 0.3f);
+            npc.TargetClosest();
+            Player player = Main.player[npc.target];
+            Vector2 val = Main.player[npc.target].Center + new Vector2(npc.Center.X, npc.Center.Y);
+            Vector2 val2 = npc.Center + new Vector2(npc.Center.X, npc.Center.Y);
+            npc.netUpdate = true;
+            if (player.position.X > npc.position.X)
             {
-                NPC.spriteDirection = 1;
+                npc.spriteDirection = 1;
             }
-            else if (player.position.X < NPC.position.X)
+            else if (player.position.X < npc.position.X)
             {
-                NPC.spriteDirection = -1;
+                npc.spriteDirection = -1;
             }
-            NPC.TargetClosest();
-            NPC.velocity.X = NPC.velocity.X * 0.93f;
-            if ((double)NPC.velocity.X > -0.1 && (double)NPC.velocity.X < 0.1)
+            npc.TargetClosest();
+            npc.velocity.X = npc.velocity.X * 0.93f;
+            if ((double)npc.velocity.X > -0.1 && (double)npc.velocity.X < 0.1)
             {
-                NPC.velocity.X = 0f;
+                npc.velocity.X = 0f;
             }
-            if (NPC.ai[0] == 0f)
+            if (npc.ai[0] == 0f)
             {
-                NPC.ai[0] = 500f;
+                npc.ai[0] = 500f;
             }
-            if (NPC.ai[2] != 0f && NPC.ai[3] != 0f)
+            if (npc.ai[2] != 0f && npc.ai[3] != 0f)
             {
-                SoundEngine.PlaySound(SoundID.Item8, NPC.position);
+                Main.PlaySound(SoundID.Item8, npc.position);
                 for (int i = 0; i < 50; i++)
                 {
-                    int num = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 6, 0f, 0f, 100, default(Color), 1.8f);
+                    int num = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, 6, 0f, 0f, 100, default(Color), 1.8f);
                     Dust obj = Main.dust[num];
                     obj.velocity *= 3f;
                     Main.dust[num].noGravity = true;
                 }
-                NPC.position.X = NPC.ai[2] * 16f - (float)(NPC.width / 2) + 8f;
-                NPC.position.Y = NPC.ai[3] * 16f - (float)NPC.height;
-                NPC.velocity.X = 0f;
-                NPC.velocity.Y = 0f;
-                NPC.ai[2] = 0f;
-                NPC.ai[3] = 0f;
-                SoundEngine.PlaySound(SoundID.Item8, NPC.position);
+                npc.position.X = npc.ai[2] * 16f - (float)(npc.width / 2) + 8f;
+                npc.position.Y = npc.ai[3] * 16f - (float)npc.height;
+                npc.velocity.X = 0f;
+                npc.velocity.Y = 0f;
+                npc.ai[2] = 0f;
+                npc.ai[3] = 0f;
+                Main.PlaySound(SoundID.Item8, npc.position);
                 for (int j = 0; j < 50; j++)
                 {
-                    int num2 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 6, 0f, 0f, 100, default(Color), 1.8f);
+                    int num2 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, 6, 0f, 0f, 100, default(Color), 1.8f);
                     Dust obj2 = Main.dust[num2];
                     obj2.velocity *= 3f;
                     Main.dust[num2].noGravity = true;
                 }
             }
-            NPC.ai[0] += 1f;
-            NPC.netUpdate = true;
-            if (NPC.ai[0] >= 650f && Main.netMode != 1)
+            npc.ai[0] += 1f;
+            npc.netUpdate = true;
+            if (npc.ai[0] >= 650f && Main.netMode != 1)
             {
-                NPC.ai[0] = 1f;
-                int num3 = (int)Main.player[NPC.target].position.X / 16;
-                int num4 = (int)Main.player[NPC.target].position.Y / 16;
-                int num5 = (int)NPC.position.X / 16;
-                int num6 = (int)NPC.position.Y / 16;
+                npc.ai[0] = 1f;
+                int num3 = (int)Main.player[npc.target].position.X / 16;
+                int num4 = (int)Main.player[npc.target].position.Y / 16;
+                int num5 = (int)npc.position.X / 16;
+                int num6 = (int)npc.position.Y / 16;
                 int num7 = 20;
                 int num8 = 0;
                 bool flag = false;
-                if (Math.Abs(NPC.position.X - Main.player[NPC.target].position.X) + Math.Abs(NPC.position.Y - Main.player[NPC.target].position.Y) > 2000f)
+                if (Math.Abs(npc.position.X - Main.player[npc.target].position.X) + Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 2000f)
                 {
                     num8 = 100;
                     flag = true;
@@ -136,68 +129,61 @@ namespace TheDepths.NPCs
                     int num9 = Main.rand.Next(num3 - num7, num3 + num7);
                     for (int k = Main.rand.Next(num4 - num7, num4 + num7); k < num4 + num7; k++)
                     {
-                        if ((k < num4 - 4 || k > num4 + 4 || num9 < num3 - 4 || num9 > num3 + 4) && (k < num6 - 1 || k > num6 + 1 || num9 < num5 - 1 || num9 > num5 + 1) && Main.tile[num9, k].HasUnactuatedTile)
+                        if ((k < num4 - 4 || k > num4 + 4 || num9 < num3 - 4 || num9 > num3 + 4) && (k < num6 - 1 || k > num6 + 1 || num9 < num5 - 1 || num9 > num5 + 1) && Main.tile[num9, k].nactive())
                         {
                             bool flag2 = true;
-                            if ((Main.tile[num9, k - 1].LiquidType == LiquidID.Lava))
+                            if (Main.tile[num9, k - 1].lava())
                             {
                                 flag2 = false;
                             }
-                            if (flag2 && Main.tileSolid[Main.tile[num9, k].TileType] && !Collision.SolidTiles(num9 - 1, num9 + 1, k - 4, k - 1))
+                            if (flag2 && Main.tileSolid[Main.tile[num9, k].type] && !Collision.SolidTiles(num9 - 1, num9 + 1, k - 4, k - 1))
                             {
-                                NPC.ai[2] = num9;
-                                NPC.ai[3] = k;
+                                npc.ai[2] = num9;
+                                npc.ai[3] = k;
                                 flag = true;
                                 break;
                             }
                         }
                     }
                 }
-                NPC.netUpdate = true;
+                npc.netUpdate = true;
             }
-            if (!player.dead && Vector2.Distance(player.Center, NPC.Center) < 1000f)
+            if (!player.dead && Vector2.Distance(player.Center, npc.Center) < 1000f)
             {
-                NPC.ai[1] += 1f;
-                if (NPC.ai[1] >= 150f)
+                npc.ai[1] += 1f;
+                if (npc.ai[1] >= 150f)
                 {
                     attacking = true;
                 }
-                if (NPC.ai[1] == 150f)
+                if (npc.ai[1] == 150f)
                 {
                     for (int l = 0; l < 10; l++)
                     {
-                        Dust.NewDust(NPC.position, NPC.width, NPC.height, 6, Main.rand.Next(-6, 6), Main.rand.Next(-6, 6), 0, default(Color), 1.4f);
+                        Dust.NewDust(npc.position, npc.width, npc.height, 6, Main.rand.Next(-6, 6), Main.rand.Next(-6, 6), 0, default(Color), 1.4f);
                     }
                 }
-                if (NPC.ai[1] >= 180f)
+                if (npc.ai[1] >= 180f)
                 {
-                    SoundEngine.PlaySound(SoundID.Item42, NPC.position);
+                    Main.PlaySound(SoundID.Item42, npc.position);
                     float num10 = (float)Math.Atan2(val2.Y - val.Y, val2.X - val.X);
-                    int num11 = Projectile.NewProjectile(new EntitySource_Misc(""), NPC.Center.X, NPC.Center.Y, (float)(Math.Cos(num10) * 14.0 * -1.0), (float)(Math.Sin(num10) * 14.0 * -1.0), Mod.Find<ModProjectile>("LumpOfCoal").Type, 25, 0f, 0);
+                    int num11 = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, (float)(Math.Cos(num10) * 14.0 * -1.0), (float)(Math.Sin(num10) * 14.0 * -1.0), mod.ProjectileType("LumpOfCoal"), 25, 0f, 0);
                     Main.projectile[num11].friendly = false;
                     Main.projectile[num11].hostile = true;
                     Main.projectile[num11].timeLeft = 120;
                     attacking = false;
-                    NPC.ai[1] = 0f;
+                    npc.ai[1] = 0f;
                 }
             }
-            NPC.netUpdate = true;
+            npc.netUpdate = true;
         }
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (Main.hardMode && spawnInfo.Player.ZoneUnderworldHeight && WorldBiomeManager.WorldHell == "TheDepths/AltDepthsBiome")
+            if (Main.hardMode && spawnInfo.player.ZoneUnderworldHeight && TheDepthsWorldGen.depthsorHell)
             {
                 return 1.5f;
             }
             return 0f;
-        }
-
-        public override void ModifyNPCLoot(NPCLoot npcLoot)
-        {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Ember>(), 1, 1, 3));
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CharredCrown>(), 100, 1, 1));
-            npcLoot.Add(ItemDropRule.Common(ItemID.Ruby, 50, 1, 1));
         }
     }
 }

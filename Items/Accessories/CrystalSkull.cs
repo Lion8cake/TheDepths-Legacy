@@ -15,13 +15,13 @@ namespace TheDepths.Items.Accessories
 		}
 
 		public override void SetDefaults() {
-			Item.width = 24;
-			Item.height = 28;
-			Item.value = 27000;
-			Item.rare = ItemRarityID.Green;
-			Item.accessory = true;
-			Item.defense = 1;
-			Item.lifeRegen = 19;
+			item.width = 24;
+			item.height = 28;
+			item.value = 27000;
+			item.rare = ItemRarityID.Green;
+			item.accessory = true;
+			item.defense = 1;
+			item.lifeRegen = 19;
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual) {
@@ -29,10 +29,11 @@ namespace TheDepths.Items.Accessories
 		}
 
 		public override void AddRecipes() {
-			Recipe recipe = CreateRecipe();
+			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ModContent.ItemType<Items.Placeable.Quartz>(), 30);
 			recipe.AddTile(TileID.Furnaces);
-			recipe.Register();
+			recipe.SetResult(this);
+			recipe.AddRecipe();
 		}
 	}
 }

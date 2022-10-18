@@ -9,7 +9,6 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using TheDepths.Items.Banners;
-using AltLibrary.Common.Systems;
 
 namespace TheDepths.NPCs
 {
@@ -17,30 +16,29 @@ namespace TheDepths.NPCs
 	{
 		public override void SetStaticDefaults() {
 			DisplayName.SetDefault("Archroma");
-			Main.npcFrameCount[NPC.type] = 2; 
+			Main.npcFrameCount[npc.type] = 2; 
 		}
 		
 		public override void SetDefaults() {
-			NPC.width = 24;
-			NPC.height = 24;
-			NPC.damage = 75;
-			NPC.defense = 35;
-			NPC.lifeMax = 800;
-			NPC.HitSound = SoundID.NPCHit1;
-			NPC.DeathSound = SoundID.NPCDeath1;
-			NPC.value = 250000f;
-			NPC.knockBackResist = 0.5f;
-			NPC.aiStyle = 1;
-			AIType = NPCID.Crimslime;
-			AnimationType = NPCID.Crimslime;
-			NPC.lavaImmune = true;
-			Banner = NPC.type;
-			BannerItem = ModContent.ItemType<AchromaBanner>();
+			npc.width = 24;
+			npc.height = 24;
+			npc.damage = 75;
+			npc.defense = 35;
+			npc.lifeMax = 800;
+			npc.HitSound = SoundID.NPCHit1;
+			npc.DeathSound = SoundID.NPCDeath1;
+			npc.value = 250000f;
+			npc.knockBackResist = 0.5f;
+			npc.aiStyle = 1;
+			aiType = NPCID.Crimslime;
+			animationType = NPCID.Crimslime;
+			banner = npc.type;
+			bannerItem = ModContent.ItemType<AchromaBanner>();
 		}
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			if (Main.hardMode && spawnInfo.Player.ZoneUnderworldHeight && WorldBiomeManager.WorldHell == "TheDepths/AltDepthsBiome")
+			if (Main.hardMode && spawnInfo.player.ZoneUnderworldHeight && TheDepthsWorldGen.depthsorHell)
 			{
 				return 1.5f;
 			}

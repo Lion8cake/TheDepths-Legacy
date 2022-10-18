@@ -15,21 +15,21 @@ namespace TheDepths.Items.Weapons
 		}
 
 		public override void SetDefaults() {
-			Item.damage = 20;
-			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
-			Item.width = 40;
-			Item.height = 40;
-			Item.useTime = 30;
-			Item.useAnimation = 30; 
-			Item.knockBack = 15;
-			Item.value = Item.buyPrice(gold: 5);
-			Item.rare = ItemRarityID.Orange;
-			Item.UseSound = SoundID.Item1; 
-			Item.autoReuse = true;
-			Item.crit = 4;
-			Item.useStyle = ItemUseStyleID.Swing;
-			Item.shoot = ModContent.ProjectileType<SapphireShovelProj>();
-			Item.shootSpeed = 7.5f;
+			item.damage = 20;
+			item.melee = true;
+			item.width = 40;
+			item.height = 40;
+			item.useTime = 30;
+			item.useAnimation = 30; 
+			item.knockBack = 15;
+			item.value = Item.buyPrice(gold: 5);
+			item.rare = ItemRarityID.Orange;
+			item.UseSound = SoundID.Item1; 
+			item.autoReuse = true;
+			item.crit = 4;
+			item.useStyle = ItemUseStyleID.SwingThrow;
+			item.shoot = ModContent.ProjectileType<SapphireShovelProj>();
+			item.shootSpeed = 7.5f;
 		}
 		
 		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit) {

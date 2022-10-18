@@ -9,7 +9,7 @@ namespace TheDepths.Projectiles.Nohitweapon
     {
         private int type;
 
-        public override string Texture => $"Terraria/Images/Projectile_" + type;
+        public override string Texture => "Terraria/Projectile_" + type;
 
         public MiracfulCrimsonNote(int type)
         {
@@ -18,12 +18,13 @@ namespace TheDepths.Projectiles.Nohitweapon
 
         public override void SetDefaults()
         {
-            Projectile.CloneDefaults(type);
+            projectile.CloneDefaults(type);
+            projectile.magic = false;
         }
 
         public override bool PreAI()
         {
-            Lighting.AddLight(Projectile.Center, Color.Crimson.ToVector3());
+            Lighting.AddLight(projectile.Center, Color.Crimson.ToVector3());
             return base.PreAI();
         }
 

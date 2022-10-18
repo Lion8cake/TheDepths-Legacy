@@ -11,15 +11,15 @@ namespace TheDepths.Tiles
 {
     public class ArqueriteBricks : ModTile
     {
-        public override void SetStaticDefaults()
+        public override void SetDefaults()
         {
             Main.tileSolid[Type] = true;
             Main.tileMergeDirt[Type] = true;
             Main.tileBlockLight[Type] = true;
             Main.tileLighted[Type] = false;
-            ItemDrop = ModContent.ItemType<Items.Placeable.ArqueriteBricks>();
+            drop = ModContent.ItemType<Items.Placeable.ArqueriteBricks>();
             AddMapEntry(new Color(71, 84, 105));
-			DustType = ModContent.DustType<ArqueriteDust>();
+			dustType = ModContent.DustType<ArqueriteDust>();
         }
 
         public override void NumDust(int i, int j, bool fail, ref int num)

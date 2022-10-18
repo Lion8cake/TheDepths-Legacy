@@ -7,25 +7,26 @@ namespace TheDepths.Tiles
 {
 	public class ShalestoneSapphire : ModTile
 	{
-		public override void SetStaticDefaults() {
+		public override void SetDefaults() {
 			Main.tileSolid[Type] = true;
 			Main.tileMergeDirt[Type] = true;
 			Main.tileBlockLight[Type] = true;
 			Main.tileLighted[Type] = false;
-			ItemDrop = ItemID.Sapphire;
-			DustType = Mod.Find<ModDust>("ShaleDust").Type;
+			drop = ItemID.Sapphire;
+			dustType = mod.DustType("ShaleDust");
 			AddMapEntry(new Color(11, 34, 147));
-			Main.tileMerge[Type][Mod.Find<ModTile>("ShaleBlock").Type] = true;
-			Main.tileMerge[Type][Mod.Find<ModTile>("Shalestone").Type] = true;
-			Main.tileMerge[Type][Mod.Find<ModTile>("ShalestoneDiamond").Type] = true;
-			Main.tileMerge[Type][Mod.Find<ModTile>("ShalestoneEmerald").Type] = true;
-			Main.tileMerge[Type][Mod.Find<ModTile>("ShalestoneRuby").Type] = true;
-			Main.tileMerge[Type][Mod.Find<ModTile>("ShalestoneSapphire").Type] = true;
-			Main.tileMerge[Type][Mod.Find<ModTile>("ShalestoneTopaz").Type] = true;
-			Main.tileMerge[Type][Mod.Find<ModTile>("OnyxShalestone").Type] = true;
+			Main.tileMerge[Type][mod.TileType("ShaleBlock")] = true;
+			Main.tileMerge[Type][mod.TileType("Shalestone")] = true;
+			Main.tileMerge[Type][mod.TileType("ShalestoneDiamond")] = true;
+			Main.tileMerge[Type][mod.TileType("ShalestoneEmerald")] = true;
+			Main.tileMerge[Type][mod.TileType("ShalestoneRuby")] = true;
+			Main.tileMerge[Type][mod.TileType("ShalestoneSapphire")] = true;
+			Main.tileMerge[Type][mod.TileType("ShalestoneTopaz")] = true;
+			Main.tileMerge[Type][mod.TileType("OnyxShalestone")] = true;
 			
-			HitSound = SoundID.Tink;
-			MinPick = 65;
+			soundType = SoundID.Tink;
+			soundStyle = 1;
+			minPick = 65;
 		}
 
 		public override void NumDust(int i, int j, bool fail, ref int num) {

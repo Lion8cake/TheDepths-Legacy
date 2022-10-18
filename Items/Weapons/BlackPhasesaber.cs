@@ -9,11 +9,11 @@ namespace TheDepths.Items.Weapons
 	{
 		public override void SetDefaults()
 		{
-			Item.CloneDefaults(3764);
-			Item.damage = 41;
-			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
-			Item.width = 40;
-			Item.height = 40;
+			item.CloneDefaults(3764);
+			item.damage = 41;
+			item.melee = true;
+			item.width = 40;
+			item.height = 40;
 		}
 		
 		public override void MeleeEffects(Player player, Rectangle hitbox)
@@ -23,11 +23,12 @@ namespace TheDepths.Items.Weapons
 	    
 		public override void AddRecipes()
 		{
-			Recipe recipe = CreateRecipe();
+			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.CrystalShard, 50);
 			recipe.AddIngredient(ModContent.ItemType<Items.Weapons.BlackPhaseblade>(), 1);
 			recipe.AddTile(TileID.Anvils);
-			recipe.Register();
+			recipe.SetResult(this);
+			recipe.AddRecipe();
 		}
 	}
 }

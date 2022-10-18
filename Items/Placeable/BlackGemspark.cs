@@ -11,25 +11,26 @@ namespace TheDepths.Items.Placeable
 		}
 
 		public override void SetDefaults() {
-			Item.width = 12;
-			Item.height = 12;
-			Item.maxStack = 999;
-			Item.useTurn = true;
-			Item.autoReuse = true;
-			Item.useAnimation = 15;
-			Item.useTime = 10;
-			Item.useStyle = ItemUseStyleID.Swing;
-			Item.consumable = true;
-			Item.createTile = ModContent.TileType<Tiles.BlackGemspark>();
+			item.width = 12;
+			item.height = 12;
+			item.maxStack = 999;
+			item.useTurn = true;
+			item.autoReuse = true;
+			item.useAnimation = 15;
+			item.useTime = 10;
+			item.useStyle = ItemUseStyleID.SwingThrow;
+			item.consumable = true;
+			item.createTile = ModContent.TileType<Tiles.BlackGemspark>();
 		}
 		
 		public override void AddRecipes()
 		{
-			Recipe recipe = CreateRecipe();
+			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.Glass, 20);
 			recipe.AddIngredient(ModContent.ItemType<Items.Placeable.Onyx>(), 1);
 			recipe.AddTile(TileID.WorkBenches);
-			recipe.Register();
+			recipe.SetResult(this);
+			recipe.AddRecipe();
 		}
 	}
 }

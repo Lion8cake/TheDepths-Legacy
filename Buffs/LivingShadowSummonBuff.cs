@@ -6,7 +6,7 @@ namespace TheDepths.Buffs
 {
 public class LivingShadowSummonBuff : ModBuff
 {
-	public override void SetStaticDefaults()
+	public override void SetDefaults()
 	{
 		DisplayName.SetDefault("Silhouette");
 		Description.SetDefault("A figure similar to yourself will attack enemys for you.");
